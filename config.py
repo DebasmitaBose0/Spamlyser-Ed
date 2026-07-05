@@ -40,6 +40,11 @@ VERIFICATION_MODEL_NAME: str = os.getenv(
     "SPAMLYSER_VERIFICATION_MODEL", "distilbert-base-uncased"
 )
 
+# Cache — glob pattern used to detect existing HuggingFace model snapshots.
+MODEL_CACHE_GLOB_PATTERN: str = os.getenv(
+    "SPAMLYSER_CACHE_GLOB", "snapshots/*"
+)
+
 # ── Data files ─────────────────────────────────────────────────────────────
 FEEDBACK_DB_PATH: str = os.getenv(
     "SPAMLYSER_FEEDBACK_DB", str(DATA_DIR / "feedback.db")
