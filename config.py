@@ -108,6 +108,11 @@ LANGUAGE_DETECTION_CONFIDENCE_THRESHOLD: float = float(
     os.getenv("SPAMLYSER_LANG_CONFIDENCE", "0.3")
 )
 
+# Threat analysis — minimum word length before a term is considered urgent/scam.
+THREAT_MIN_URGENT_WORD_LENGTH: int = int(
+    os.getenv("SPAMLYSER_THREAT_MIN_URGENT", "4")
+)
+
 
 # ── Helpers ────────────────────────────────────────────────────────────────
 def ensure_data_dir() -> Path:
