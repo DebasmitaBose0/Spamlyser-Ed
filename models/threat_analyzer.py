@@ -179,7 +179,7 @@ _COMPILED_PATTERNS = {
         r"(cash|\$\d+|money).{0,30}(click|yes|claim)", re.IGNORECASE
     ),
     "scam_urgent": re.compile(
-        r"\b(million|lottery|inheritance|cash|money)\b.{0,15}\b(urgent|now|today)\b",
+        r"\b(million|lottery|inheritance|cash|money|prize|won|winner)\b.{0,10}\b(urgent|now|today|immediately|limited)\b",
         re.IGNORECASE,
     ),
     "scam_won": re.compile(
