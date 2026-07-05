@@ -5202,6 +5202,48 @@ def show_analytics_page():
             st.success("Notification settings updated!")
 
     # Action Buttons
+    st.markdown("### 📊 Export Analytics Data")
+    try:
+        from models.analytics_exporter import (
+            SUPPORTED_FORMATS,
+            export_report_summary,
+            export_to_csv,
+        )
+
+        records = st.session_state.get("analytics_records", [])
+        if records:
+            fmt = st.selectbox("Export format", list(SUPPORTED_FORMATS.keys()), key="export_fmt")
+            if st.button("⬇️ Download Export", use_container_width=True):
+                if fmt == "csv":
+                    data = export_to_csv(records)
+                elif fmt == "json":
+                    from models.analytics_exporter import export_to_json
+
+                    data = export_to_json(records)
+                else:
+                    from models.analytics_exporter import export_to_html
+
+                    data = export_to_html(records)
+                mime, ext, _ = SUPPORTED_FORMATS[fmt]
+                st.download_button(
+                    label=f"📁 Save as {fmt.upper()}",
+                    data=data,
+                    file_name=f"spamlyser_export_{datetime.now().strftime('%Y%m%d_%H%M%S')}{ext}",
+                    mime=mime,
+                )
+            summary = export_report_summary(records)
+            st.caption(
+                f"{summary['total_classified']} total · "
+                f"{summary['spam_count']} spam ({summary['spam_percentage']}%) · "
+                f"{summary['ham_count']} ham ({summary['ham_percentage']}%) · "
+                f"avg confidence {summary['average_confidence']:.0%}"
+            )
+        else:
+            st.info("No analytics records available yet. Run an analysis first.")
+    except ImportError:
+        pass
+
+    # Action Buttons
     st.markdown("### 🎯 Quick Actions")
     action_col1, action_col2, action_col3 = st.columns(3)
 

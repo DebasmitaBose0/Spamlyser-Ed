@@ -134,3 +134,7 @@ ANALYTICS_DB_PATH: str = os.getenv(
 ANALYTICS_RETENTION_DAYS: int = int(os.getenv("SPAMLYSER_ANALYTICS_RETENTION", "90"))
 
 BATCH_RATE_LIMIT = 50
+
+# ── Analytics export ──────────────────────────────────────────────────────
+ANALYTICS_EXPORT_MAX_RECORDS: int = int(os.getenv("SPAMLYSER_EXPORT_MAX", "10000"))
+ANALYTICS_EXPORT_DEFAULT_FORMAT: str = os.getenv("SPAMLYSER_EXPORT_FORMAT", "csv")

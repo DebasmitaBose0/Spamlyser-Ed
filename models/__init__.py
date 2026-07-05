@@ -14,6 +14,13 @@ try:
 except ImportError:
     pass
 
+from .analytics_exporter import (
+    SUPPORTED_FORMATS,
+    export_report_summary,
+    export_to_csv,
+    export_to_html,
+    export_to_json,
+)
 from .batch_processor import BatchProcessor
 from .calibration import ConfidenceCalibrator
 from .custom_rules_manager import (
@@ -45,6 +52,7 @@ from .word_analyzer import WordAnalyzer
 
 __all__ = [
     "SPAM_KEYWORDS",
+    "SUPPORTED_FORMATS",
     "THREAT_CATEGORIES",
     "BatchProcessor",
     "ConfidenceCalibrator",
@@ -66,6 +74,10 @@ __all__ = [
     "evaluate_compound_rule",
     "evaluate_condition",
     "export_results_button",
+    "export_report_summary",
+    "export_to_csv",
+    "export_to_html",
+    "export_to_json",
     "get_threat_specific_advice",
     "is_language_supported",
     "latency_benchmark",
