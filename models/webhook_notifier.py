@@ -15,13 +15,15 @@ from typing import Any
 
 import requests as req
 
+from models.rate_limiter_middleware import RateLimiter
+
 logger = logging.getLogger(__name__)
 
 
 class WebhookNotifier:
     """Manages webhook endpoints and sends alerts asynchronously."""
 
-    def __init__(self, config_path: str | None = None):
+    def __init__(self, config_path: str | None = None, rate_limiter: RateLimiter | None = None):
         if config_path is None:
             config_path = os.getenv(
                 "SPAMLYSER_WEBHOOK_CONFIG",
@@ -29,6 +31,14 @@ class WebhookNotifier:
             )
         self._config_path = Path(config_path)
         self._webhooks: list[dict[str, Any]] = []
+        self._rate_limiter = rate_limiter or RateLimiter(
+            max_requests=int(os.getenv("SPAMLYSER_RATE_LIMIT_MAX", "30")),
+            window_seconds=int(os.getenv("SPAMLYSER_RATE_LIMIT_WINDOW", "60")),
+            persist_path=os.getenv(
+                "SPAMLYSER_RATE_LIMIT_DB",
+                str(Path(__file__).resolve().parent.parent / "data" / "rate_limiter_state.json"),
+            ),
+        )
         self._load_config()
 
     def _load_config(self):
@@ -107,16 +117,23 @@ class WebhookNotifier:
                 ).start()
 
     def _send_single(self, webhook: dict, payload: dict):
+        url = webhook["url"]
+        if not self._rate_limiter.allow(url):
+            logger.warning("Rate limit exceeded for %s, skipping notification", url)
+            return
         try:
             headers = {"Content-Type": "application/json"}
             if webhook.get("secret"):
                 headers["X-Webhook-Secret"] = webhook["secret"]
             resp = req.post(
-                webhook["url"],
+                url,
                 json=payload,
                 headers=headers,
                 timeout=10,
             )
             resp.raise_for_status()
         except req.RequestException as e:
-            logger.warning("Webhook %s failed: %s", webhook["url"], e)
+            logger.warning("Webhook %s failed: %s", url, e)
+
+    def get_rate_limiter(self) -> RateLimiter:
+        return self._rate_limiter

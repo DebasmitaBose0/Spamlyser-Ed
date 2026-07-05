@@ -15,6 +15,7 @@ except ImportError:
     pass
 
 from .batch_processor import BatchProcessor
+from .rate_limiter_middleware import RateLimiter
 from .calibration import ConfidenceCalibrator
 from .custom_rules_manager import (
     check_custom_rules,
@@ -49,6 +50,7 @@ __all__ = [
     "BatchProcessor",
     "ConfidenceCalibrator",
     "MessageCategorizer",
+    "RateLimiter",
     "ReportEncryptor",
     "SenderReputation",
     "SimpleExplainer",

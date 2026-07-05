@@ -134,3 +134,15 @@ ANALYTICS_DB_PATH: str = os.getenv(
 ANALYTICS_RETENTION_DAYS: int = int(os.getenv("SPAMLYSER_ANALYTICS_RETENTION", "90"))
 
 BATCH_RATE_LIMIT = 50
+
+# ── Rate limiting (webhooks, external API calls) ─────────────────────────
+RATE_LIMIT_MAX_REQUESTS: int = int(
+    os.getenv("SPAMLYSER_RATE_LIMIT_MAX", "30")
+)
+RATE_LIMIT_WINDOW_SECONDS: int = int(
+    os.getenv("SPAMLYSER_RATE_LIMIT_WINDOW", "60")
+)
+RATE_LIMIT_PERSIST_PATH: str = os.getenv(
+    "SPAMLYSER_RATE_LIMIT_DB",
+    str(DATA_DIR / "rate_limiter_state.json"),
+)

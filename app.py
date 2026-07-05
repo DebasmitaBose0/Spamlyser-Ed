@@ -6927,7 +6927,9 @@ def show_settings_page():
             cols[1].markdown(
                 f"Events: {', '.join(wh.get('events', ['spam_detected']))}"
             )
-            if cols[2].button("🗑️ Remove", key=f"del_wh_{i}"):
+            remaining = notifier.get_rate_limiter().remaining(wh["url"])
+            cols[2].markdown(f"📊 {remaining} req left")
+            if st.button("🗑️ Remove", key=f"del_wh_{i}"):
                 notifier.remove_webhook(wh["url"])
                 st.rerun()
 
