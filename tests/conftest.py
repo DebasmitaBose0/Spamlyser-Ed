@@ -1,59 +1,75 @@
-import sys
-from unittest.mock import MagicMock
+"""Shared fixtures and configuration for the Spamlyser test suite."""
 
-# 1. Always mock heavy / optional modules so imports succeed quickly.
-#    These modules take too long to import for real in test fixtures.
-_ALWAYS_MOCKED = [
-    "torch",
-    "torch.cuda",
-    "transformers",
-    "streamlit",
-    "lime",
-    "lime.lime_text",
-    "plotly",
-    "plotly.express",
-    "plotly.graph_objects",
-    "sklearn",
-    "sentencepiece",
-    "datasets",
-]
-for _mod in _ALWAYS_MOCKED:
-    sys.modules.setdefault(_mod, MagicMock())
+import json
+import tempfile
+from pathlib import Path
 
-sys.modules["torch"].cuda.is_available.return_value = False
+import pytest
 
-# 2. Conditionally mock fpdf only when it is not installed (so PDF tests
-#    that require it can skip via pytest.importorskip).
-if "fpdf" not in sys.modules:
-    try:
-        __import__("fpdf")
-    except ImportError:
-        sys.modules["fpdf"] = MagicMock()
+SAMPLE_MESSAGES = {
+    "spam": [
+        "WINNER!! You've won a FREE ticket to the Bahamas! Call 09061213087 now!",
+        "URGENT: Your account has been compromised. Click here to verify: http://evil.phish",
+        "Congratulations! You've been selected for a $1000 gift card. Reply YES to claim.",
+        "Hey, I'm stuck in London and lost my wallet. Please send $500 via Western Union to help.",
+        "Limited time offer! 0% APR on all credit cards. Apply now at https://scam-bank.com",
+    ],
+    "ham": [
+        "Hey, are we still meeting for coffee tomorrow at 3pm?",
+        "The report is ready for review. I've attached it to the email.",
+        "Don't forget to pick up milk and bread on your way home.",
+        "Thanks for your help with the project! Really appreciate it.",
+        "Reminder: Team standup is at 9:30 AM in conference room B.",
+    ],
+    "edge": [
+        "",
+        "A" * 1001,
+        "normal text with no special chars",
+        "   ",
+        "+1 (555) 123-4567",
+    ],
+}
 
-# 3. Setup a default mock pipeline returning structured scores for tests
-mock_pipeline = MagicMock()
-mock_pipeline.return_value = [{"label": "SPAM", "score": 0.95}]
-sys.modules["transformers"].pipeline.return_value = mock_pipeline
 
-# 4. Prevent models/model_init.py verification from calling Hugging Face on import
-import models.model_init
+@pytest.fixture(scope="session")
+def sample_spam_messages():
+    return list(SAMPLE_MESSAGES["spam"])
 
-models.model_init.MODEL_STATUS = True
-models.model_init.MODEL_ERROR_MESSAGE = ""
-models.model_init.MODEL_WARNINGS = []
-models.model_init.verify_model_availability = MagicMock(return_value=(True, "", []))
 
-sys.modules["torch"].cuda.is_available.return_value = False
+@pytest.fixture(scope="session")
+def sample_ham_messages():
+    return list(SAMPLE_MESSAGES["ham"])
 
-# Setup a default mock pipeline returning structured scores for tests
-mock_pipeline = MagicMock()
-mock_pipeline.return_value = [{"label": "SPAM", "score": 0.95}]
-sys.modules["transformers"].pipeline.return_value = mock_pipeline
 
-# 2. Prevent models/model_init.py verification from calling Hugging Face on import
-import models.model_init
+@pytest.fixture(scope="session")
+def sample_edge_messages():
+    return list(SAMPLE_MESSAGES["edge"])
 
-models.model_init.MODEL_STATUS = True
-models.model_init.MODEL_ERROR_MESSAGE = ""
-models.model_init.MODEL_WARNINGS = []
-models.model_init.verify_model_availability = MagicMock(return_value=(True, "", []))
+
+@pytest.fixture(scope="session")
+def all_sample_messages():
+    return [
+        *SAMPLE_MESSAGES["spam"],
+        *SAMPLE_MESSAGES["ham"],
+        *SAMPLE_MESSAGES["edge"],
+    ]
+
+
+@pytest.fixture
+def temp_data_dir():
+    with tempfile.TemporaryDirectory() as tmp:
+        yield Path(tmp)
+
+
+@pytest.fixture
+def temp_json_file(temp_data_dir):
+    path = temp_data_dir / "test_data.json"
+    path.write_text(json.dumps({"key": "value"}), encoding="utf-8")
+    return path
+
+
+@pytest.fixture
+def mock_env_vars(monkeypatch):
+    monkeypatch.setenv("SPAMLYSER_DATA_DIR", str(tempfile.gettempdir()))
+    monkeypatch.setenv("SPAMLYSER_MAX_SMS_LENGTH", "1000")
+    monkeypatch.setenv("SPAMLYSER_ENABLE_TELEMETRY", "false")
