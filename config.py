@@ -108,6 +108,11 @@ LANGUAGE_DETECTION_CONFIDENCE_THRESHOLD: float = float(
     os.getenv("SPAMLYSER_LANG_CONFIDENCE", "0.3")
 )
 
+# Word analysis — maximum number of distinct features displayed per analysis
+WORD_ANALYSIS_MAX_FEATURES: int = int(
+    os.getenv("SPAMLYSER_WORD_MAX_FEATURES", "15")
+)
+
 
 # ── Helpers ────────────────────────────────────────────────────────────────
 def ensure_data_dir() -> Path:
