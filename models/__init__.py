@@ -23,6 +23,7 @@ from .custom_rules_manager import (
 )
 from .encrypted_report import ReportEncryptor
 from .export_feature import export_results_button
+from .input_sanitizer import SanitizerReport, detect_data_leakage, is_suspicious_input, sanitize
 from .language_detector import detect_language, is_language_supported
 from .message_categorizer import MessageCategorizer
 from .model_comparator import agreement_score, compare_predictions
@@ -50,6 +51,7 @@ __all__ = [
     "ConfidenceCalibrator",
     "MessageCategorizer",
     "ReportEncryptor",
+    "SanitizerReport",
     "SenderReputation",
     "SimpleExplainer",
     "StorageManager",
@@ -62,15 +64,18 @@ __all__ = [
     "compare_predictions",
     "confidence_distribution",
     "default_json_validator",
+    "detect_data_leakage",
     "detect_language",
     "evaluate_compound_rule",
     "evaluate_condition",
     "export_results_button",
     "get_threat_specific_advice",
     "is_language_supported",
+    "is_suspicious_input",
     "latency_benchmark",
     "load_custom_rules",
     "run_all",
+    "sanitize",
     "save_custom_rules",
     "summary",
     "validate_compound_rules",

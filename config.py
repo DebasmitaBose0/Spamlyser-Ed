@@ -134,3 +134,8 @@ ANALYTICS_DB_PATH: str = os.getenv(
 ANALYTICS_RETENTION_DAYS: int = int(os.getenv("SPAMLYSER_ANALYTICS_RETENTION", "90"))
 
 BATCH_RATE_LIMIT = 50
+
+# ── Input sanitization ────────────────────────────────────────────────────
+SANITIZE_MAX_INPUT_LENGTH: int = int(os.getenv("SPAMLYSER_SANITIZE_MAX_LENGTH", "10000"))
+SANITIZE_STRIP_SCRIPTS: bool = os.getenv("SPAMLYSER_SANITIZE_STRIP_SCRIPTS", "true").lower() == "true"
+SANITIZE_LOG_REPORT: bool = os.getenv("SPAMLYSER_SANITIZE_LOG", "true").lower() == "true"

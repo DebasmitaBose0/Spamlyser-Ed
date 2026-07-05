@@ -159,14 +159,25 @@ def validate_sms_message(message: str) -> tuple:
     """Validate an SMS message.
 
     Returns ``(is_valid: bool, error_msg: str, sanitized: str)`` where the
-    sanitized string has HTML tags stripped (safe for model inference).
+    sanitized string has been run through the full sanitisation pipeline
+    (Unicode normalisation, script stripping, truncation).
     """
     if not message or not message.strip():
         return False, "Message cannot be empty.", ""
+
     if len(message) > MAX_SMS_LENGTH:
         return (
             False,
             f"Message exceeds {MAX_SMS_LENGTH} characters ({len(message)} given).",
             strip_html_unsafe(message[:MAX_SMS_LENGTH]),
         )
+
+    try:
+        from models.input_sanitizer import sanitize as deep_sanitize
+
+        cleaned, _ = deep_sanitize(message, max_length=MAX_SMS_LENGTH)
+        return True, "", cleaned
+    except ImportError:
+        pass
+
     return True, "", strip_html_unsafe(message)
