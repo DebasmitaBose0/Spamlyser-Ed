@@ -181,6 +181,18 @@ except ImportError:
                 )
             return dummy_results
 
+        def get_model_prediction(self, model_name, message):
+            from models.smart_preprocess import preprocess_message
+
+            cleaned = preprocess_message(message)["cleaned"]
+            return {
+                "label": "HAM",
+                "score": 0.85,
+                "spam_probability": 0.15,
+                "model": model_name,
+                "details": "Dummy prediction (ensemble_classifier_method.py not found)",
+            }
+
 
 # Core Python imports
 import re
