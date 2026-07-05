@@ -134,3 +134,7 @@ ANALYTICS_DB_PATH: str = os.getenv(
 ANALYTICS_RETENTION_DAYS: int = int(os.getenv("SPAMLYSER_ANALYTICS_RETENTION", "90"))
 
 BATCH_RATE_LIMIT = 50
+
+# ── Preprocessing ─────────────────────────────────────────────────────────
+LEETSPEAK_ENABLED: bool = os.getenv("SPAMLYSER_LEETSPEAK", "true").lower() == "true"
+ABBREVIATION_EXPAND: bool = os.getenv("SPAMLYSER_EXPAND_ABBRS", "true").lower() == "true"

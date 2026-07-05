@@ -24,7 +24,7 @@ ABBREVIATIONS = {
     "ttyl": "talk to you later",
     "asap": "as soon as possible",
 }
-LEETSPEAK = {"0": "o", "1": "i", "3": "e", "4": "a", "5": "s", "7": "t"}
+LEETSPEAK = {"0": "o", "1": "i", "3": "e", "4": "a", "5": "s", "7": "t", "8": "b"}
 
 
 def expand_abbreviations(text: str) -> str:
@@ -39,11 +39,13 @@ def correct_leetspeak(text: str) -> str:
     # prices like "$100") are passed through unchanged, preventing corruption
     # of legitimate numeric content while still decoding obfuscated words
     # such as "Fr33" → "Free" or "M0n3y" → "Money".
+    # Additionally, a digit occurring at both ends of a numeric span (e.g.
+    # "2024" → unchanged) is left alone because those tokens lack letters.
     def _decode_token(token: str) -> str:
         if not any(c.isalpha() for c in token):
             return token  # nothing to decode in a purely numeric token
         for k, v in LEETSPEAK.items():
-            token = safe_regex_sub(rf"{k}", v, token, default=token)
+            token = safe_regex_sub(rf"(?<![a-zA-Z]){k}(?![a-zA-Z])", v, token, default=token)
         return token
 
     return " ".join(_decode_token(tok) for tok in text.split(" "))
