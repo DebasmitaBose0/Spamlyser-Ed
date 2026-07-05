@@ -78,6 +78,9 @@ ENCRYPT_REPORT_BY_DEFAULT: bool = (
 APP_TITLE: str = os.getenv("SPAMLYSER_APP_TITLE", "Spamlyser Pro - Ensemble Edition")
 APP_ICON: str = os.getenv("SPAMLYSER_APP_ICON", "🛡️")
 
+# Navigation — default timeout in seconds for page transitions
+NAVIGATION_TIMEOUT: int = int(os.getenv("SPAMLYSER_NAV_TIMEOUT", "5"))
+
 # ── Feature flags ──────────────────────────────────────────────────────────
 ENABLE_TELEMETRY: bool = os.getenv("SPAMLYSER_ENABLE_TELEMETRY", "false").lower() in (
     "1",
