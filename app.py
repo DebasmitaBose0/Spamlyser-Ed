@@ -209,6 +209,17 @@ except ImportError:
 if "current_page" not in st.session_state:
     st.session_state.current_page = "home"
 
+# Restore persisted session state (settings, preferences) from disk.
+try:
+    from models.session_persistence import restore_session_state
+
+    restored = restore_session_state()
+    for key, val in restored.items():
+        if key not in st.session_state:
+            st.session_state[key] = val
+except ImportError:
+    pass
+
 # Initialize sender reputation tracker
 if "sender_reputation" not in st.session_state:
     try:
@@ -6967,7 +6978,6 @@ def show_settings_page():
 
     with export_col3:
         if st.button("🔄 Reset to Defaults", use_container_width=True):
-            # Reset to default settings
             st.session_state.settings = {
                 "default_model": "DistilBERT",
                 "confidence_threshold": 0.7,
@@ -6982,6 +6992,23 @@ def show_settings_page():
             }
             st.success("Settings reset to defaults!")
             st.rerun()
+
+    persist_col1, persist_col2 = st.columns(2)
+    with persist_col1:
+        if st.button("💾 Save Session to Disk", use_container_width=True):
+            from models.session_persistence import save_session_state
+
+            if save_session_state(st.session_state):
+                st.toast("Session settings saved. They will restore on next load.")
+            else:
+                st.info("Session was saved recently — skipping duplicate save.")
+    with persist_col2:
+        if st.button("🗑️ Clear Saved Session", use_container_width=True):
+            from models.session_persistence import clear_persisted_session
+
+            clear_persisted_session()
+            st.success("Saved session data cleared.")
+
 
     # Quick Actions
     st.markdown("### 🎯 Quick Actions")

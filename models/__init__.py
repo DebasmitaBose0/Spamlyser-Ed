@@ -42,8 +42,15 @@ from .threat_analyzer import (
 )
 from .webhook_notifier import WebhookNotifier
 from .word_analyzer import WordAnalyzer
+from .session_persistence import (
+    PERSISTENT_KEYS,
+    clear_persisted_session,
+    restore_session_state,
+    save_session_state,
+)
 
 __all__ = [
+    "PERSISTENT_KEYS",
     "SPAM_KEYWORDS",
     "THREAT_CATEGORIES",
     "BatchProcessor",
@@ -59,6 +66,7 @@ __all__ = [
     "check_compound_rules",
     "check_custom_rules",
     "classify_threat_type",
+    "clear_persisted_session",
     "compare_predictions",
     "confidence_distribution",
     "default_json_validator",
@@ -70,8 +78,11 @@ __all__ = [
     "is_language_supported",
     "latency_benchmark",
     "load_custom_rules",
+    "persist_session_state",
+    "restore_session_state",
     "run_all",
     "save_custom_rules",
+    "save_session_state",
     "summary",
     "validate_compound_rules",
 ]

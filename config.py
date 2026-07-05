@@ -134,3 +134,8 @@ ANALYTICS_DB_PATH: str = os.getenv(
 ANALYTICS_RETENTION_DAYS: int = int(os.getenv("SPAMLYSER_ANALYTICS_RETENTION", "90"))
 
 BATCH_RATE_LIMIT = 50
+
+# ── Session persistence ────────────────────────────────────────────────────
+SESSION_PERSIST_PATH: str = os.getenv(
+    "SPAMLYSER_SESSION_PERSIST", str(DATA_DIR / "session_state.json")
+)
