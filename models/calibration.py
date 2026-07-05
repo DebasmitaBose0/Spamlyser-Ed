@@ -1,13 +1,16 @@
-from models.calibrator_store import CalibratorStore
-
 """
 Model confidence calibration module for Expected Calibration Error (ECE),
 Platt Scaling, and Temperature Scaling.
 """
 
+import logging
 from typing import Any, Dict, Tuple
 
 import numpy as np
+
+from models.calibrator_store import CalibratorStore
+
+logger = logging.getLogger(__name__)
 
 try:
     from scipy.optimize import minimize
@@ -15,6 +18,7 @@ try:
     SCIPY_AVAILABLE = True
 except ImportError:
     SCIPY_AVAILABLE = False
+    logger.warning("scipy not available — calibration methods will use defaults")
 
 
 class ConfidenceCalibrator:
@@ -76,7 +80,7 @@ class ConfidenceCalibrator:
     def fit_temperature(self, y_true: np.ndarray, y_prob: np.ndarray) -> float:
         """Find the optimal temperature T using negative log likelihood minimization."""
         if not SCIPY_AVAILABLE:
-            print("Warning: scipy is not installed. Returning default temperature.")
+            logger.warning("scipy is not installed. Returning default temperature.")
             self.temperature = 1.0
             return self.temperature
 
@@ -103,9 +107,7 @@ class ConfidenceCalibrator:
     def fit_platt(self, y_true: np.ndarray, y_prob: np.ndarray) -> tuple[float, float]:
         """Find Platt scaling parameters A and B using logistic regression."""
         if not SCIPY_AVAILABLE:
-            print(
-                "Warning: scipy is not installed. Returning default Platt parameters."
-            )
+            logger.warning("scipy is not installed. Returning default Platt parameters.")
             self.platt_a, self.platt_b = 1.0, 0.0
             return self.platt_a, self.platt_b
 
