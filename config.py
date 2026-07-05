@@ -100,6 +100,9 @@ BENCHMARK_SAMPLE_SIZE: int = int(os.getenv("SPAMLYSER_BENCHMARK_SAMPLES", "10"))
 
 BENCHMARK_WARMUP_RUNS: int = int(os.getenv("SPAMLYSER_BENCHMARK_WARMUP", "1"))
 
+# SQLite — busy timeout and WAL journal mode are enabled unconditionally.
+SQLITE_BUSY_TIMEOUT_MS: int = int(os.getenv("SPAMLYSER_SQLITE_TIMEOUT", "5000"))
+
 LANGUAGE_DETECTION_ENABLED: bool = (
     os.getenv("SPAMLYSER_LANG_DETECT", "true").lower() == "true"
 )
