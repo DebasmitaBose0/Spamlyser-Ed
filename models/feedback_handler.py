@@ -40,13 +40,20 @@ def _open_connection(db_path: str) -> sqlite3.Connection:
 
 
 def _get_connection(db_path: str) -> sqlite3.Connection:
-    """Return a healthy thread-local SQLite connection, reconnecting if needed.
+    """Return a healthy thread-local SQLite connection indexed by db_path.
 
-    A "SELECT 1" ping is executed before returning the connection.  Any
-    exception (``OperationalError``, ``ProgrammingError``, etc.) is treated as
-    a signal that the connection is stale; it is closed and replaced.
+    Connections are stored in a per-thread dict keyed by ``db_path`` so that
+    multiple ``FeedbackHandler`` instances targeting different databases on
+    the same thread do not share a connection.
+
+    A lightweight "SELECT 1" ping validates the connection is still alive
+    before every return.  If the ping fails the stale connection is closed
+    and a fresh one is opened.
     """
-    conn = getattr(_local, "conn", None)
+    if not hasattr(_local, "connections"):
+        _local.connections = {}
+
+    conn = _local.connections.get(db_path)
     if conn is not None:
         try:
             conn.execute("SELECT 1")
@@ -61,9 +68,9 @@ def _get_connection(db_path: str) -> sqlite3.Connection:
             conn = None
 
     if conn is None:
-        _local.conn = _open_connection(db_path)
+        _local.connections[db_path] = _open_connection(db_path)
 
-    return _local.conn
+    return _local.connections[db_path]
 
 
 class FeedbackHandler:
