@@ -134,3 +134,6 @@ ANALYTICS_DB_PATH: str = os.getenv(
 ANALYTICS_RETENTION_DAYS: int = int(os.getenv("SPAMLYSER_ANALYTICS_RETENTION", "90"))
 
 BATCH_RATE_LIMIT = 50
+
+# Output — max length of rendered HTML text before truncation (XSS hardening)
+OUTPUT_MAX_TEXT_LENGTH: int = int(os.getenv("SPAMLYSER_OUTPUT_MAX_LEN", "5000"))
