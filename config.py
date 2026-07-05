@@ -100,6 +100,11 @@ BENCHMARK_SAMPLE_SIZE: int = int(os.getenv("SPAMLYSER_BENCHMARK_SAMPLES", "10"))
 
 BENCHMARK_WARMUP_RUNS: int = int(os.getenv("SPAMLYSER_BENCHMARK_WARMUP", "1"))
 
+# Ensemble — agreement penalty multiplier for models that disagree with majority
+ENSEMBLE_AGREEMENT_PENALTY: float = float(
+    os.getenv("SPAMLYSER_ENSEMBLE_PENALTY", "0.5")
+)
+
 LANGUAGE_DETECTION_ENABLED: bool = (
     os.getenv("SPAMLYSER_LANG_DETECT", "true").lower() == "true"
 )
