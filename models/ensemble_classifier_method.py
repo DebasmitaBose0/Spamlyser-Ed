@@ -97,6 +97,21 @@ class EnsembleSpamClassifier:
 
         return True
 
+    @staticmethod
+    def _get_majority_label(predictions: dict[str, dict[str, Any]]) -> str | None:
+        """Return the majority label across all models, or None on tie."""
+        spam = sum(
+            1 for p in predictions.values() if p.get("label", "").upper() == "SPAM"
+        )
+        ham = sum(
+            1 for p in predictions.values() if p.get("label", "").upper() == "HAM"
+        )
+        if spam > ham:
+            return "SPAM"
+        if ham > spam:
+            return "HAM"
+        return None
+
     def majority_voting(self, predictions: dict[str, dict[str, Any]]) -> dict[str, Any]:
 
         # Approach 1: Majority Voting
@@ -270,6 +285,7 @@ class EnsembleSpamClassifier:
             spam_weight = 0.0
             ham_weight = 0.0
             model_votes = []
+            ensemble_majority_label = self._get_majority_label(predictions)
 
             for model_name, pred in predictions.items():
                 label = pred["label"].upper()
@@ -277,7 +293,14 @@ class EnsembleSpamClassifier:
 
                 # Incorporate per-model reliability score
                 reliability = self.model_weights.get(model_name, 1.0)
-                adjusted_weight = confidence * reliability
+
+                # Penalise models that disagree with the ensemble majority.
+                # A confidently-wrong prediction gets its weight reduced.
+                agreement_penalty = 1.0
+                if ensemble_majority_label and label != ensemble_majority_label:
+                    agreement_penalty = 0.5
+
+                adjusted_weight = confidence * reliability * agreement_penalty
 
                 # Weight the vote by adjusted confidence
                 if label == "SPAM":
