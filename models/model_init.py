@@ -80,10 +80,21 @@ def verify_model_availability() -> tuple[bool, str, list]:
 
         test_model_name = VERIFICATION_MODEL_NAME
         cache_dir = MODEL_CACHE_DIR
-        model_cached = cache_dir.exists() and any(
-            test_model_name in str(p.parent) and p.is_dir()
-            for p in cache_dir.rglob(f"*{test_model_name}*")
-        )
+
+        # HuggingFace stores cached models in subdirectories named after the
+        # model ID with slashes replaced, e.g.:
+        #   ~/.cache/huggingface/transformers/models--distilbert-base-uncased/
+        # Under that directory a ``snapshots/`` folder holds the actual weights.
+        # We use a recursive glob and check for the characteristic directory
+        # name pattern instead of a simple substring match.
+        model_cached = False
+        if cache_dir.exists():
+            model_cache_pattern = f"models--{test_model_name.replace('/', '--')}"
+            model_cached = any(
+                model_cache_pattern in str(p)
+                for p in cache_dir.rglob("*")
+                if p.is_dir()
+            )
 
         if not model_cached:
             warnings.append(
