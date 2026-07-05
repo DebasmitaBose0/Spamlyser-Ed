@@ -40,7 +40,7 @@ from .threat_analyzer import (
     classify_threat_type,
     get_threat_specific_advice,
 )
-from .webhook_notifier import WebhookNotifier
+from .webhook_notifier import RetryEntry, WebhookNotifier
 from .word_analyzer import WordAnalyzer
 
 __all__ = [
@@ -50,6 +50,7 @@ __all__ = [
     "ConfidenceCalibrator",
     "MessageCategorizer",
     "ReportEncryptor",
+    "RetryEntry",
     "SenderReputation",
     "SimpleExplainer",
     "StorageManager",

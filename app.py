@@ -6930,6 +6930,13 @@ def show_settings_page():
             if cols[2].button("🗑️ Remove", key=f"del_wh_{i}"):
                 notifier.remove_webhook(wh["url"])
                 st.rerun()
+        pending = notifier.pending_retries
+        if pending:
+            st.info(f"⏳ {pending} webhook delivery(ies) pending retry")
+            if st.button("🔄 Flush retry queue", key="flush_retries"):
+                flushed = notifier.flush_retry_queue()
+                st.toast(f"Cleared {flushed} pending retries")
+                st.rerun()
 
     st.markdown("---")
 

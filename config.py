@@ -134,3 +134,7 @@ ANALYTICS_DB_PATH: str = os.getenv(
 ANALYTICS_RETENTION_DAYS: int = int(os.getenv("SPAMLYSER_ANALYTICS_RETENTION", "90"))
 
 BATCH_RATE_LIMIT = 50
+
+# ── Webhook retry schedule ─────────────────────────────────────────────────
+WEBHOOK_RETRY_BACKOFF: list[int] = [1, 4, 16, 64]
+WEBHOOK_RETRY_MAX_ATTEMPTS: int = int(os.getenv("SPAMLYSER_WEBHOOK_RETRY", "4"))
