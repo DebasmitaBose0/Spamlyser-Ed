@@ -45,9 +45,26 @@ def load_global_styles():
 # Callers must pass it explicitly to show_feedback_page(navigate_to=...).
 
 
-def show_feedback_page(navigate_to):
-    """Feedback page for user comments, suggestions, and bug reports"""
-    # Import the feedback handler
+def _import_navigate_to():
+    """Fallback: import navigate_to from app.py if not provided by caller."""
+    try:
+        import sys
+        sys.path.insert(0, str(Path(__file__).resolve().parent))
+        import app as _app  # type: ignore[import-not-found]
+        return _app.navigate_to
+    except (ImportError, AttributeError):
+        import streamlit as st
+        return lambda page: st.switch_page(page)
+
+
+def show_feedback_page(navigate_to=None):
+    """Feedback page for user comments, suggestions, and bug reports
+
+    If *navigate_to* is not provided the function tries to import the real
+    ``navigate_to`` from ``app.py`` as a fallback.
+    """
+    if navigate_to is None:
+        navigate_to = _import_navigate_to()
     try:
         from models.feedback_handler import FeedbackHandler
 

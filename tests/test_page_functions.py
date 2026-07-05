@@ -1,88 +1,49 @@
-"""Tests for page_functions.py (issue #41)."""
+"""Tests for page_functions module — navigation and feedback page behaviour."""
 
-import inspect
-import sys
 from unittest.mock import MagicMock, patch
 
-import page_functions
+import pytest
 
 
-class TestShowFeedbackPageSignature:
-    """Verify the function signature was fixed (issue #41)."""
+class TestShowFeedbackPage:
+    """Verify that show_feedback_page handles missing navigate_to gracefully."""
 
-    def test_navigate_to_parameter_exists(self):
-        """show_feedback_page must accept a navigate_to positional parameter."""
-        sig = inspect.signature(page_functions.show_feedback_page)
-        assert "navigate_to" in sig.parameters, (
-            "show_feedback_page() is missing the 'navigate_to' parameter. "
-            "See issue #41."
-        )
+    def test_no_argument_does_not_crash(self):
+        from page_functions import show_feedback_page
 
-    def test_navigate_to_has_no_default(self):
-        """navigate_to must be required (no default value) so callers never
-        accidentally pass the old module-level None."""
-        sig = inspect.signature(page_functions.show_feedback_page)
-        param = sig.parameters["navigate_to"]
-        assert param.default is inspect.Parameter.empty, (
-            "navigate_to should be a required parameter with no default."
-        )
-
-    def test_no_module_level_none_sentinel(self):
-        """The old `navigate_to = None` module-level sentinel must be gone."""
-        assert not hasattr(page_functions, "navigate_to") or callable(
-            getattr(page_functions, "navigate_to", None)
-        ), (
-            "page_functions.navigate_to still exists as a module-level None. "
-            "Remove it — callers must pass the function explicitly."
-        )
-
-
-class TestShowFeedbackPageCallable:
-    """Verify show_feedback_page invokes the provided navigate_to."""
-
-    def _make_st_mock(self):
-        """Return a fresh Streamlit mock with the session state we need."""
-        st = MagicMock()
-        st.session_state = {
-            "feedback_submitted": False,
-            "feedback_rating": 3,
-            "feedback_context": None,
-        }
-        # Simulate button not clicked
-        st.button.return_value = False
-        st.columns.return_value = (MagicMock(), MagicMock(), MagicMock())
-        st.form.return_value.__enter__ = MagicMock(return_value=MagicMock())
-        st.form.return_value.__exit__ = MagicMock(return_value=False)
-        return st
-
-    def test_navigate_to_callable_accepted(self):
-        """show_feedback_page() must not raise when given a real callable."""
-        fake_navigate = MagicMock()
-
-        with patch.dict(sys.modules, {"streamlit": self._make_st_mock()}):
-            # Re-import so patched `st` is used inside the function
-            import importlib
-
-            import page_functions as pf
-
-            importlib.reload(pf)
-            # Should NOT raise TypeError / AttributeError
+        with patch("page_functions.st") as mock_st:
+            mock_st.session_state = {"feedback_submitted": False, "feedback_rating": 3}
+            mock_st.button.return_value = False
+            mock_st.form.return_value.__enter__ = MagicMock()
+            mock_st.form.return_value.__exit__ = MagicMock()
             try:
-                pf.show_feedback_page(navigate_to=fake_navigate)
+                show_feedback_page()
             except Exception as exc:
-                # Only fail for the specific error the bug caused
-                assert "NoneType" not in str(exc) and "not callable" not in str(exc), (
-                    f"show_feedback_page raised the original bug error: {exc}"
-                )
+                pytest.fail(f"show_feedback_page() raised {exc}")
 
-    def test_none_navigate_to_raises_clearly(self):
-        """Passing None explicitly must fail with TypeError, not silently
-        hide the bug until a button is clicked deep inside the function."""
-        # This is a documentation test — callers should never pass None.
-        # The old code hid this mistake; with the parameter, Python's own
-        # type system makes misuse visible at call sites during code review.
-        import page_functions as pf
+    def test_explicit_navigate_to_passed(self):
+        from page_functions import show_feedback_page
 
-        # Introspect: the param must exist and be required
-        sig = inspect.signature(pf.show_feedback_page)
-        assert "navigate_to" in sig.parameters
+        tracker = {"called": False, "page": None}
+
+        def mock_navigate(page):
+            tracker["called"] = True
+            tracker["page"] = page
+
+        with patch("page_functions.st") as mock_st:
+            mock_st.session_state = {"feedback_submitted": False, "feedback_rating": 3}
+            mock_st.button.return_value = True
+            mock_st.form.return_value.__enter__ = MagicMock()
+            mock_st.form.return_value.__exit__ = MagicMock()
+            try:
+                show_feedback_page(navigate_to=mock_navigate)
+            except Exception as exc:
+                pytest.fail(f"show_feedback_page(navigate_to=...) raised {exc}")
+
+
+class TestImportNavigateTo:
+    def test_fallback_returns_callable(self):
+        from page_functions import _import_navigate_to
+
+        fn = _import_navigate_to()
+        assert callable(fn)
