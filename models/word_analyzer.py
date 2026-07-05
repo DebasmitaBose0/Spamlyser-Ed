@@ -327,7 +327,7 @@ class WordAnalyzer:
             # Add bias for non-spam words in the word analysis
             # This will help ensure neutral words appear as ham in the UI
             is_spammy = spam_weight > ham_weight and spam_weight > 0
-            is_hammy = not is_spammy or word_type == "neutral" or word_type == "ham"
+            is_hammy = ham_weight > spam_weight and ham_weight > 0
 
             word_analysis.append(
                 {
