@@ -611,22 +611,22 @@ class WordAnalyzer:
                         position: relative;
                         cursor: help;
                     "
-                    title="{tooltip_text}"
+                    title="{html.escape(tooltip_text)}"
                     onmouseover="this.style.transform='scale(1.05)'; this.style.boxShadow='0 0 {int(5 + glow_intensity * 8)}px {shadow_color}'"
                     onmouseout="this.style.transform='scale(1)'; this.style.boxShadow='0 0 {int(3 + glow_intensity * 5)}px {shadow_color}'"
-                    >{icon if is_influential else ""} {word}</span>'''
+                    >{icon if is_influential else ""} {html.escape(word)}</span>'''
                     highlighted_words.append(highlighted_word)
                 else:
                     # For neutral words, show as ham in HAM messages or neutral in SPAM messages
                     if analysis.get("predicted_class") == "HAM":
                         # Show as subtle green for neutral words in HAM messages
                         highlighted_words.append(
-                            f'<span style="color: #28a745; background-color: rgba(40, 167, 69, 0.1); padding: 3px 6px; border-radius: 4px; border: 1px solid rgba(40, 167, 69, 0.2); margin: 1px;">{word}</span>'
+                            f'<span style="color: #28a745; background-color: rgba(40, 167, 69, 0.1); padding: 3px 6px; border-radius: 4px; border: 1px solid rgba(40, 167, 69, 0.2); margin: 1px;">{html.escape(word)}</span>'
                         )
                     else:
                         # No influence, show with subtle styling
                         highlighted_words.append(
-                            f'<span style="color: #6c757d; padding: 2px 4px;">{word}</span>'
+                            f'<span style="color: #6c757d; padding: 2px 4px;">{html.escape(word)}</span>'
                         )
             else:
                 highlighted_words.append(word)
