@@ -1,0 +1,17 @@
+venv/
+__pycache__/
+*.pyc
+*.pyo
+.env
+.streamlit/secrets.toml
+.git/
+.gitignore
+Dockerfile
+docker-compose.yml
+README.md
+tests/
+data/
+.backups/
+screenshots/
+*.md
+*.ps1

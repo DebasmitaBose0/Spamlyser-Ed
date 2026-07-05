@@ -27,6 +27,12 @@ PROJECT_ROOT = Path(__file__).resolve().parent
 # Where per-run data (feedback, performance snapshots) is stored.
 DATA_DIR = Path(os.getenv("SPAMLYSER_DATA_DIR", str(PROJECT_ROOT / "data")))
 
+# Docker runtime detection
+IN_DOCKER: bool = os.path.exists("/.dockerenv") or os.getenv("SPAMLYSER_IN_DOCKER", "false").lower() == "true"
+
+# Default port for Streamlit; overridden in docker-compose / entrypoint
+APP_PORT: int = int(os.getenv("PORT", "8501"))
+
 # ── Model settings ─────────────────────────────────────────────────────────
 MODEL_CACHE_DIR = Path(
     os.getenv(
