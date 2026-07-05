@@ -6771,8 +6771,31 @@ def show_settings_page():
     interface_col1, interface_col2 = st.columns(2)
 
     with interface_col1:
-        st.markdown("### Theme & Appearance")
-        theme = st.selectbox(
+    st.markdown("### Theme & Appearance")
+    try:
+        from models.theme_presets import apply_preset_to_session, css_for_preset, get_preset, get_preset_names
+
+        current_preset = st.session_state.settings.get("theme_preset", "")
+        preset_names = get_preset_names()
+        preset_labels = [get_preset(n).icon + " " + get_preset(n).name for n in preset_names]
+        default_idx = preset_names.index(current_preset) if current_preset in preset_names else 0
+        chosen = st.selectbox(
+            "Colour preset:",
+            options=preset_names,
+            format_func=lambda x: get_preset(x).icon + " " + get_preset(x).name,
+            index=default_idx,
+            help="Pre-configured colour schemes for the interface",
+        )
+        if chosen != current_preset:
+            apply_preset_to_session(chosen, st.session_state.settings)
+            st.rerun()
+        preset_css = css_for_preset(chosen)
+        if preset_css:
+            st.markdown(preset_css, unsafe_allow_html=True)
+    except ImportError:
+        pass
+
+    theme = st.selectbox(
             "Choose interface theme:",
             options=["Light", "Dark", "Auto"],
             index=["Light", "Dark", "Auto"].index(st.session_state.settings["theme"]),

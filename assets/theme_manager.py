@@ -3,7 +3,7 @@
 import json
 import os
 from pathlib import Path
-from typing import Literal
+from typing import Any, Literal
 
 import streamlit as st
 
@@ -45,6 +45,18 @@ def set_theme(theme: Theme) -> None:
     """Update session state and persist the choice."""
     st.session_state.theme = theme
     _persist(theme)
+
+    # Sync with theme_presets if a matching preset exists.
+    try:
+        from models.theme_presets import get_preset
+
+        for pname in ("spamlord", "midnight", "ocean", "forest", "cherry", "solarized"):
+            preset = get_preset(pname)
+            if preset and ((preset.is_dark and theme == "dark") or (not preset.is_dark and theme == "light")):
+                st.session_state["settings"]["theme_preset"] = pname
+                break
+    except (ImportError, KeyError):
+        pass
 
 
 def theme_css_variables() -> str:
