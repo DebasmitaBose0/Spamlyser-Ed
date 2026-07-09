@@ -604,17 +604,18 @@ class WordAnalyzer:
                         padding: 4px 8px;
                         border-radius: 6px;
                         font-weight: {"bold" if is_influential else "600"};
+                        text-shadow: 0px 0px 4px {shadow_color};
                         border: 2px solid {border_color};
                         margin: 2px;
                         display: inline-block;
                         box-shadow: 0 0 {int(3 + glow_intensity * 5)}px {shadow_color};
-                        transition: all 0.3s ease;
+                        transition: all 0.2s ease-in-out;
                         position: relative;
                         cursor: help;
                     "
                     title="{tooltip_text}"
-                    onmouseover="this.style.transform='scale(1.05)'; this.style.boxShadow='0 0 {int(5 + glow_intensity * 8)}px {shadow_color}'"
-                    onmouseout="this.style.transform='scale(1)'; this.style.boxShadow='0 0 {int(3 + glow_intensity * 5)}px {shadow_color}'"
+                    onmouseover="this.style.transform='scale(1.1) translateY(-2px)'; this.style.boxShadow='0 4px 10px {shadow_color}'"
+                    onmouseout="this.style.transform='scale(1) translateY(0)'; this.style.boxShadow='0 0 {int(3 + glow_intensity * 5)}px {shadow_color}'"
                     >{icon if is_influential else ""} {word}</span>'''
                     highlighted_words.append(highlighted_word)
                 else:

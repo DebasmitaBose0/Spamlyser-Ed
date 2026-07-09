@@ -1295,7 +1295,7 @@ def show_analyzer_page():
         help="Choose between analyzing a single message or processing multiple messages from a CSV file",
     )
 
-    if analysis_mode == "Single Message":
+    if analysis_mode == "Single Message Analysis":
         st.markdown("### 📝 Single Message Analysis")
         # Existing single message analysis code will go here
     else:
