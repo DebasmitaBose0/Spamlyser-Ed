@@ -2679,11 +2679,51 @@ def show_models_page():
             )
 
         with col2:
-            # Performance metrics for BERT
-            st.metric("🎯 Accuracy", "97.2%", "+0.8%")
-            st.metric("⚡ Speed", "120ms", "Standard")
-            st.metric("🧠 Memory", "440MB", "Base Model")
-            st.metric("🔥 F1-Score", "96.8%", "+1.2%")
+            # Performance metrics for BERT with custom HTML progress bars
+            st.markdown(
+                """
+            <div style="background: var(--card-bg); padding: 20px; border-radius: 15px; border: 1px solid var(--card-border); margin-bottom: 15px; box-shadow: 0 4px 6px rgba(0,0,0,0.15);">
+                <h4 style="margin: 0 0 15px 0; color: var(--accent); font-size: 1.1rem;">📊 Performance Profile</h4>
+                <div style="margin-bottom: 12px;">
+                    <div style="display: flex; justify-content: space-between; font-size: 0.85rem; margin-bottom: 4px;">
+                        <span style="color: var(--text-secondary);">Accuracy</span>
+                        <strong style="color: var(--success);">97.2%</strong>
+                    </div>
+                    <div style="background: var(--bg-secondary); border-radius: 10px; height: 8px; overflow: hidden;">
+                        <div style="background: var(--success); width: 97.2%; height: 100%; border-radius: 10px;"></div>
+                    </div>
+                </div>
+                <div style="margin-bottom: 12px;">
+                    <div style="display: flex; justify-content: space-between; font-size: 0.85rem; margin-bottom: 4px;">
+                        <span style="color: var(--text-secondary);">F1-Score</span>
+                        <strong style="color: var(--accent);">96.8%</strong>
+                    </div>
+                    <div style="background: var(--bg-secondary); border-radius: 10px; height: 8px; overflow: hidden;">
+                        <div style="background: var(--accent); width: 96.8%; height: 100%; border-radius: 10px;"></div>
+                    </div>
+                </div>
+                <div style="margin-bottom: 12px;">
+                    <div style="display: flex; justify-content: space-between; font-size: 0.85rem; margin-bottom: 4px;">
+                        <span style="color: var(--text-secondary);">Inference Speed</span>
+                        <strong style="color: var(--warning);">120ms (Standard)</strong>
+                    </div>
+                    <div style="background: var(--bg-secondary); border-radius: 10px; height: 8px; overflow: hidden;">
+                        <div style="background: var(--warning); width: 65%; height: 100%; border-radius: 10px;"></div>
+                    </div>
+                </div>
+                <div>
+                    <div style="display: flex; justify-content: space-between; font-size: 0.85rem; margin-bottom: 4px;">
+                        <span style="color: var(--text-secondary);">Memory Usage</span>
+                        <strong style="color: var(--error);">440MB</strong>
+                    </div>
+                    <div style="background: var(--bg-secondary); border-radius: 10px; height: 8px; overflow: hidden;">
+                        <div style="background: var(--error); width: 85%; height: 100%; border-radius: 10px;"></div>
+                    </div>
+                </div>
+            </div>
+            """,
+                unsafe_allow_html=True,
+            )
 
             st.markdown(
                 """
