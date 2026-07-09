@@ -5740,6 +5740,77 @@ def show_docs_page():
         unsafe_allow_html=True,
     )
 
+    # Interactive Cheat Sheet & Quick Reference
+    st.markdown("### ⚡ Interactive Quick Reference Cheat Sheet")
+    st.markdown("Select a topic below for instant documentation references and code snippets:")
+    
+    cheat_sheet_topic = st.selectbox(
+        "Select Quick Reference Topic:",
+        options=[
+            "💡 REST API Endpoints Quick Reference",
+            "🛡️ Custom Regex Rules Quick Syntax",
+            "🤖 Model Architecture & Parameter Specs"
+        ],
+        key="cheat_sheet_selector"
+    )
+    
+    if "💡 REST API Endpoints Quick Reference" in cheat_sheet_topic:
+        st.markdown("""
+        <div style="background: var(--card-bg); padding: 20px; border-radius: 12px; border: 1px solid var(--card-border); margin-bottom: 20px;">
+            <strong style="color: var(--accent); font-size: 1.1rem; display: block; margin-bottom: 10px;">🔌 API Cheat Sheet</strong>
+            <code style="display: block; background: var(--bg-secondary); padding: 8px; border-radius: 4px; color: var(--text-primary); margin-bottom: 10px;">
+                POST /api/v1/analyze
+            </code>
+            <p style="font-size: 0.85rem; color: var(--text-secondary); margin-bottom: 8px;">Analyzes a single SMS message. Request Payload:</p>
+            <pre style="background: var(--bg-secondary); padding: 8px; border-radius: 4px; color: var(--text-primary); font-size: 0.8rem; margin-bottom: 10px;">
+{
+  "message": "Verify your identity at http://phish-link.com",
+  "model": "DistilBERT"
+}</pre>
+        </div>
+        """, unsafe_allow_html=True)
+    elif "🛡️ Custom Regex Rules Quick Syntax" in cheat_sheet_topic:
+        st.markdown("""
+        <div style="background: var(--card-bg); padding: 20px; border-radius: 12px; border: 1px solid var(--card-border); margin-bottom: 20px;">
+            <strong style="color: var(--accent); font-size: 1.1rem; display: block; margin-bottom: 10px;">🛡️ Regex Syntax Guide</strong>
+            <p style="font-size: 0.85rem; color: var(--text-secondary); margin-bottom: 8px;">Common spam/phishing pattern regular expressions:</p>
+            <ul style="font-size: 0.85rem; color: var(--text-primary); line-height: 1.6; margin: 0 0 10px 15px;">
+                <li><code>\\b(win|won|prize|cash|gift)\\b</code> - Match promotional prize alerts</li>
+                <li><code>https?://[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}/?</code> - Match any web hyperlink</li>
+                <li><code>\\b\\d{4,6}\\b</code> - Match short codes or OTP structures</li>
+            </ul>
+        </div>
+        """, unsafe_allow_html=True)
+    else:
+        st.markdown("""
+        <div style="background: var(--card-bg); padding: 20px; border-radius: 12px; border: 1px solid var(--card-border); margin-bottom: 20px;">
+            <strong style="color: var(--accent); font-size: 1.1rem; display: block; margin-bottom: 10px;">🤖 Transformer Model Specs</strong>
+            <p style="font-size: 0.85rem; color: var(--text-secondary); margin-bottom: 8px;">Quick comparison of active classification models:</p>
+            <table style="width: 100%; border-collapse: collapse; font-size: 0.85rem; color: var(--text-primary);">
+                <tr style="border-bottom: 1px solid var(--card-border);">
+                    <th style="text-align: left; padding: 6px;">Model</th>
+                    <th style="text-align: left; padding: 6px;">Layers</th>
+                    <th style="text-align: left; padding: 6px;">Parameters</th>
+                    <th style="text-align: left; padding: 6px;">Avg Latency</th>
+                </tr>
+                <tr style="border-bottom: 1px solid var(--card-border);">
+                    <td style="padding: 6px;">DistilBERT</td>
+                    <td style="padding: 6px;">6</td>
+                    <td style="padding: 6px;">66M</td>
+                    <td style="padding: 6px;">50ms</td>
+                </tr>
+                <tr>
+                    <td style="padding: 6px;">BERT Base</td>
+                    <td style="padding: 6px;">12</td>
+                    <td style="padding: 6px;">110M</td>
+                    <td style="padding: 6px;">120ms</td>
+                </tr>
+            </table>
+        </div>
+        """, unsafe_allow_html=True)
+        
+    st.markdown("---")
+
     # Documentation Categories
     col1, col2, col3 = st.columns(3)
 
