@@ -7112,6 +7112,27 @@ def show_settings_page():
         else:
             st.info("No custom blocklist patterns configured.")
 
+    st.markdown("---")
+    st.markdown("### 🧪 Interactive Regex Rules Tester Sandbox")
+    st.caption("Test custom regular expressions against a sample text in real-time.")
+    
+    test_pat = st.text_input("Test Regex Pattern:", value=r"\b(free|win|prize|gift)\b", key="sandbox_regex_pattern")
+    test_txt = st.text_area("Test SMS Content:", value="Congratulations! You won a free gift card today!", key="sandbox_test_text", height=65)
+    
+    if test_pat and test_txt:
+        import re
+        try:
+            compiled = re.compile(test_pat)
+            match = compiled.search(test_txt)
+            if match:
+                st.success(f"🎯 **MATCH FOUND!** Group matched: `{match.group(0)}` at position {match.start()}-{match.end()}")
+            else:
+                st.info("ℹ️ **NO MATCH** - The regex pattern does not match the sample text.")
+        except re.error as e:
+            st.error(f"❌ Invalid Regex Pattern: {e}")
+            
+    st.markdown("---")
+
     st.markdown("### 🔗 Compound Rules (AND / OR / NOT)")
     st.caption("Combine multiple conditions with boolean logic for advanced filtering.")
 
