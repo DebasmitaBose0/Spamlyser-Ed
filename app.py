@@ -5233,14 +5233,14 @@ def show_help_page():
     <div style="
         text-align: center;
         padding: 40px 20px;
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #667eea 100%);
+        background: linear-gradient(135deg, var(--accent) 0%, #764ba2 50%, var(--accent) 100%);
         border-radius: 20px;
         margin-bottom: 40px;
-        box-shadow: 0 10px 30px rgba(102, 126, 234, 0.4);
+        box-shadow: 0 10px 30px rgba(0, 212, 170, 0.2);
         color: white;
     ">
         <h1 style="
-            font-size: 4rem;
+            font-size: 3.5rem;
             margin: 0 0 20px 0;
             text-shadow: 0 0 30px rgba(255,255,255,0.3);
             font-weight: 700;
@@ -5248,17 +5248,17 @@ def show_help_page():
             ❓ Help Center
         </h1>
         <h2 style="
-            font-size: 1.8rem;
-            margin: 0 0 30px 0;
+            font-size: 1.6rem;
+            margin: 0 0 20px 0;
             opacity: 0.9;
             font-weight: 400;
         ">
             Get Help, Find Answers, Learn More
         </h2>
         <p style="
-            font-size: 1.2rem;
+            font-size: 1.1rem;
             margin: 0;
-            opacity: 0.8;
+            opacity: 0.85;
             max-width: 700px;
             margin: 0 auto;
             line-height: 1.6;
@@ -5277,28 +5277,31 @@ def show_help_page():
         st.markdown(
             """
         <div style="
-            background: white;
+            background: var(--card-bg);
             padding: 25px;
             border-radius: 15px;
             margin-bottom: 15px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-            border-left: 5px solid #667eea;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            border-left: 5px solid var(--accent);
+            border-top: 1px solid var(--card-border);
+            border-right: 1px solid var(--card-border);
+            border-bottom: 1px solid var(--card-border);
             text-align: center;
             height: 280px;
             display: flex;
             flex-direction: column;
             justify-content: center;
         ">
-            <div style="color: #667eea; font-size: 2.2rem; margin-bottom: 10px;">🚀</div>
-            <h4 style="color: #667eea; margin: 0 0 10px 0; font-size: 1.2rem;">Getting Started</h4>
-            <p style="color: #333; line-height: 1.4; margin: 0 0 12px 0; font-size: 0.85rem;">
+            <div style="color: var(--accent); font-size: 2.2rem; margin-bottom: 10px;">🚀</div>
+            <h4 style="color: var(--accent); margin: 0 0 10px 0; font-size: 1.2rem;">Getting Started</h4>
+            <p style="color: var(--text-primary); line-height: 1.4; margin: 0 0 12px 0; font-size: 0.85rem;">
                 New to Spamlyser? Learn the basics and get up and running quickly.
             </p>
-            <div style="background: #f8f9ff; padding: 6px; border-radius: 6px; margin: 4px 0; font-size: 0.8rem;">
-                <strong style="color: #667eea;">📖 Quick Start Guide</strong>
+            <div style="background: var(--bg-secondary); padding: 6px; border-radius: 6px; margin: 4px 0; font-size: 0.8rem;">
+                <strong style="color: var(--accent);">📖 Quick Start Guide</strong>
             </div>
-            <div style="background: #f8f9ff; padding: 6px; border-radius: 6px; margin: 4px 0; font-size: 0.8rem;">
-                <strong style="color: #667eea;">🎯 First Analysis</strong>
+            <div style="background: var(--bg-secondary); padding: 6px; border-radius: 6px; margin: 4px 0; font-size: 0.8rem;">
+                <strong style="color: var(--accent);">🎯 First Analysis</strong>
             </div>
         </div>
         """,
@@ -5309,28 +5312,31 @@ def show_help_page():
         st.markdown(
             """
         <div style="
-            background: white;
+            background: var(--card-bg);
             padding: 25px;
             border-radius: 15px;
             margin-bottom: 15px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-            border-left: 5px solid #4ecdc4;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            border-left: 5px solid var(--success);
+            border-top: 1px solid var(--card-border);
+            border-right: 1px solid var(--card-border);
+            border-bottom: 1px solid var(--card-border);
             text-align: center;
             height: 280px;
             display: flex;
             flex-direction: column;
             justify-content: center;
         ">
-            <div style="color: #4ecdc4; font-size: 2.2rem; margin-bottom: 10px;">🔌</div>
-            <h4 style="color: #4ecdc4; margin: 0 0 10px 0; font-size: 1.2rem;">API Integration</h4>
-            <p style="color: #333; line-height: 1.4; margin: 0 0 12px 0; font-size: 0.85rem;">
+            <div style="color: var(--success); font-size: 2.2rem; margin-bottom: 10px;">🔌</div>
+            <h4 style="color: var(--success); margin: 0 0 10px 0; font-size: 1.2rem;">API Integration</h4>
+            <p style="color: var(--text-primary); line-height: 1.4; margin: 0 0 12px 0; font-size: 0.85rem;">
                 Integrate Spamlyser into your applications with our powerful API.
             </p>
-            <div style="background: #f0fffe; padding: 6px; border-radius: 6px; margin: 4px 0; font-size: 0.8rem;">
-                <strong style="color: #4ecdc4;">🔑 API Keys</strong>
+            <div style="background: var(--bg-secondary); padding: 6px; border-radius: 6px; margin: 4px 0; font-size: 0.8rem;">
+                <strong style="color: var(--success);">🔑 API Keys</strong>
             </div>
-            <div style="background: #f0fffe; padding: 6px; border-radius: 6px; margin: 4px 0; font-size: 0.8rem;">
-                <strong style="color: #4ecdc4;">📚 Documentation</strong>
+            <div style="background: var(--bg-secondary); padding: 6px; border-radius: 6px; margin: 4px 0; font-size: 0.8rem;">
+                <strong style="color: var(--success);">📚 Documentation</strong>
             </div>
         </div>
         """,
@@ -5341,28 +5347,31 @@ def show_help_page():
         st.markdown(
             """
         <div style="
-            background: white;
+            background: var(--card-bg);
             padding: 25px;
             border-radius: 15px;
             margin-bottom: 15px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-            border-left: 5px solid #ff6b6b;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            border-left: 5px solid var(--error);
+            border-top: 1px solid var(--card-border);
+            border-right: 1px solid var(--card-border);
+            border-bottom: 1px solid var(--card-border);
             text-align: center;
             height: 280px;
             display: flex;
             flex-direction: column;
             justify-content: center;
         ">
-            <div style="color: #ff6b6b; font-size: 2.2rem; margin-bottom: 10px;">🛠️</div>
-            <h4 style="color: #ff6b6b; margin: 0 0 10px 0; font-size: 1.2rem;">Troubleshooting</h4>
-            <p style="color: #333; line-height: 1.4; margin: 0 0 12px 0; font-size: 0.85rem;">
+            <div style="color: var(--error); font-size: 2.2rem; margin-bottom: 10px;">🛠️</div>
+            <h4 style="color: var(--error); margin: 0 0 10px 0; font-size: 1.2rem;">Troubleshooting</h4>
+            <p style="color: var(--text-primary); line-height: 1.4; margin: 0 0 12px 0; font-size: 0.85rem;">
                 Common issues and solutions to keep you running smoothly.
             </p>
-            <div style="background: #fff5f5; padding: 6px; border-radius: 6px; margin: 4px 0; font-size: 0.8rem;">
-                <strong style="color: #ff6b6b;">🔍 Error Solutions</strong>
+            <div style="background: var(--bg-secondary); padding: 6px; border-radius: 6px; margin: 4px 0; font-size: 0.8rem;">
+                <strong style="color: var(--error);">🔍 Error Solutions</strong>
             </div>
-            <div style="background: #fff5f5; padding: 6px; border-radius: 6px; margin: 4px 0; font-size: 0.8rem;">
-                <strong style="color: #ff6b6b;">⚡ Performance Tips</strong>
+            <div style="background: var(--bg-secondary); padding: 6px; border-radius: 6px; margin: 4px 0; font-size: 0.8rem;">
+                <strong style="color: var(--error);">⚡ Performance Tips</strong>
             </div>
         </div>
         """,
