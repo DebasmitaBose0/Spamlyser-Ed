@@ -7665,6 +7665,44 @@ def show_model_compare_page():
         st.info(
             "💡 Enter a message above and click **Compare Models** to see side-by-side predictions."
         )
+        
+        st.markdown("### 📊 Overall Model Comparison Profile")
+        
+        models_data = {
+            "Model": ["DistilBERT", "BERT Base", "RoBERTa Base", "ALBERT Base"],
+            "Accuracy (%)": [96.5, 97.2, 97.8, 95.8],
+            "F1-Score (%)": [96.0, 96.8, 97.5, 95.2]
+        }
+        import pandas as pd
+        df_comp = pd.DataFrame(models_data)
+        
+        import plotly.graph_objects as go
+        fig = go.Figure()
+        fig.add_trace(go.Bar(
+            x=df_comp["Model"],
+            y=df_comp["Accuracy (%)"],
+            name="Accuracy (%)",
+            marker_color="#00d4aa"
+        ))
+        fig.add_trace(go.Bar(
+            x=df_comp["Model"],
+            y=df_comp["F1-Score (%)"],
+            name="F1-Score (%)",
+            marker_color="#a855f7"
+        ))
+        fig.update_layout(
+            barmode="group",
+            title="Model Accuracy vs. F1-Score Comparison",
+            xaxis_title="Transformer Model",
+            yaxis_title="Percentage (%)",
+            yaxis_range=[90, 100],
+            paper_bgcolor="rgba(0,0,0,0)",
+            plot_bgcolor="rgba(0,0,0,0)",
+            font=dict(color="#888888"),
+            height=350,
+            margin=dict(l=20, r=20, t=40, b=20)
+        )
+        st.plotly_chart(fig, use_container_width=True)
 
     # Page routing logic
     if st.session_state.current_page == "home":
