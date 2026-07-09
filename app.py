@@ -6807,6 +6807,27 @@ def show_settings_page():
         )
         st.session_state.settings["enable_batch_mode"] = enable_batch
 
+        st.markdown("### ♿ Accessibility Controls")
+        if "accessibility_font_size" not in st.session_state:
+            st.session_state.accessibility_font_size = "Normal"
+        if "accessibility_high_contrast" not in st.session_state:
+            st.session_state.accessibility_high_contrast = False
+            
+        font_size = st.select_slider(
+            "Text Font Size Scaling:",
+            options=["Small", "Normal", "Large", "Extra Large"],
+            value=st.session_state.accessibility_font_size,
+            help="Scale the size of the text across the application",
+        )
+        st.session_state.accessibility_font_size = font_size
+        
+        high_contrast = st.checkbox(
+            "Enable High Contrast Mode",
+            value=st.session_state.accessibility_high_contrast,
+            help="Enhances color contrast for better text readability",
+        )
+        st.session_state.accessibility_high_contrast = high_contrast
+
         if theme == "Dark":
             st.markdown("🌙 **Dark theme** reduces eye strain in low light")
         elif theme == "Light":

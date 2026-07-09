@@ -106,7 +106,36 @@ def accessible_button(
     )
 
 
+def font_size_style() -> str:
+    """Return CSS styling for text depending on accessibility settings."""
+    size_map = {
+        "Small": "0.9rem",
+        "Normal": "1rem",
+        "Large": "1.2rem",
+        "Extra Large": "1.4rem"
+    }
+    font_size = st.session_state.get("accessibility_font_size", "Normal")
+    css_size = size_map.get(font_size, "1rem")
+    
+    high_contrast_css = ""
+    if st.session_state.get("accessibility_high_contrast", False):
+        high_contrast_css = """
+        html, body, [data-testid="stAppViewContainer"] {
+            filter: contrast(1.4) !important;
+        }
+        """
+        
+    return f"""
+<style>
+[data-testid="stMarkdownContainer"] p, [data-testid="stMarkdownContainer"] li, span, p {{
+    font-size: {css_size} !important;
+}}
+{high_contrast_css}
+</style>"""
+
+
 def inject_accessibility() -> None:
     """Call once at app startup to inject all accessibility enhancements."""
     skip_to_content_link()
     st.markdown(focus_ring_style(), unsafe_allow_html=True)
+    st.markdown(font_size_style(), unsafe_allow_html=True)
