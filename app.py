@@ -900,14 +900,18 @@ def show_home_page():
         st.markdown(
             """
         <div style="
-            background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 100%);
+            background: var(--card-bg);
             padding: 25px;
             border-radius: 15px;
             margin-bottom: 20px;
-            box-shadow: 0 5px 15px rgba(255, 154, 158, 0.3);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.15);
+            border-left: 5px solid var(--accent);
+            border-top: 1px solid var(--card-border);
+            border-right: 1px solid var(--card-border);
+            border-bottom: 1px solid var(--card-border);
         ">
-            <h3 style="color: #fff; margin: 0 0 15px 0;">🤖 AI-Powered Detection</h3>
-            <p style="color: #fff; margin: 0; opacity: 0.9; line-height: 1.6;">
+            <h3 style="color: var(--accent); margin: 0 0 15px 0;">🤖 AI-Powered Detection</h3>
+            <p style="color: var(--text-primary); margin: 0; opacity: 0.9; line-height: 1.6;">
                 Uses state-of-the-art transformer models including BERT, RoBERTa, DistilBERT, and ALBERT
                 for maximum accuracy in threat detection.
             </p>
@@ -919,14 +923,18 @@ def show_home_page():
         st.markdown(
             """
         <div style="
-            background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);
+            background: var(--card-bg);
             padding: 25px;
             border-radius: 15px;
             margin-bottom: 20px;
-            box-shadow: 0 5px 15px rgba(168, 237, 234, 0.3);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.15);
+            border-left: 5px solid var(--success);
+            border-top: 1px solid var(--card-border);
+            border-right: 1px solid var(--card-border);
+            border-bottom: 1px solid var(--card-border);
         ">
-            <h3 style="color: #333; margin: 0 0 15px 0;">⚡ Real-Time Analysis</h3>
-            <p style="color: #333; margin: 0; opacity: 0.8; line-height: 1.6;">
+            <h3 style="color: var(--success); margin: 0 0 15px 0;">⚡ Real-Time Analysis</h3>
+            <p style="color: var(--text-primary); margin: 0; opacity: 0.8; line-height: 1.6;">
                 Get instant results with lightning-fast processing. Analyze SMS messages
                 in milliseconds with our optimized AI pipeline.
             </p>
@@ -939,14 +947,18 @@ def show_home_page():
         st.markdown(
             """
         <div style="
-            background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
+            background: var(--card-bg);
             padding: 25px;
             border-radius: 15px;
             margin-bottom: 20px;
-            box-shadow: 0 5px 15px rgba(255, 236, 210, 0.3);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.15);
+            border-left: 5px solid var(--error);
+            border-top: 1px solid var(--card-border);
+            border-right: 1px solid var(--card-border);
+            border-bottom: 1px solid var(--card-border);
         ">
-            <h3 style="color: #333; margin: 0 0 15px 0;">🔒 Advanced Security</h3>
-            <p style="color: #333; margin: 0; opacity: 0.8; line-height: 1.6;">
+            <h3 style="color: var(--error); margin: 0 0 15px 0;">🔒 Advanced Security</h3>
+            <p style="color: var(--text-primary); margin: 0; opacity: 0.8; line-height: 1.6;">
                 Comprehensive threat classification including phishing, fraud, malware,
                 and social engineering attack detection.
             </p>
@@ -958,14 +970,18 @@ def show_home_page():
         st.markdown(
             """
         <div style="
-            background: linear-gradient(135deg, #d299c2 0%, #fef9d7 100%);
+            background: var(--card-bg);
             padding: 25px;
             border-radius: 15px;
             margin-bottom: 20px;
-            box-shadow: 0 5px 15px rgba(210, 153, 194, 0.3);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.15);
+            border-left: 5px solid var(--warning);
+            border-top: 1px solid var(--card-border);
+            border-right: 1px solid var(--card-border);
+            border-bottom: 1px solid var(--card-border);
         ">
-            <h3 style="color: #333; margin: 0 0 15px 0;">📊 Smart Analytics</h3>
-            <p style="color: #333; margin: 0; opacity: 0.8; line-height: 1.6;">
+            <h3 style="color: var(--warning); margin: 0 0 15px 0;">📊 Smart Analytics</h3>
+            <p style="color: var(--text-primary); margin: 0; opacity: 0.8; line-height: 1.6;">
                 Track performance metrics, view detailed reports, and export results
                 in multiple formats for comprehensive analysis.
             </p>
@@ -974,6 +990,41 @@ def show_home_page():
             unsafe_allow_html=True,
         )
 
+    st.markdown("---")
+
+    # Threat Categories Grid
+    st.markdown("### 🏷️ Threat Classification Categories")
+    col_t1, col_t2 = st.columns(2)
+    with col_t1:
+        st.markdown("""
+        <div style="background: var(--card-bg); padding: 20px; border-radius: 12px; border: 1px solid var(--card-border); border-left: 5px solid var(--error); margin-bottom: 15px;">
+            <strong style="color: var(--error); font-size: 1.1rem; display: block; margin-bottom: 5px;">🚨 Phishing / Smishing</strong>
+            <p style="font-size: 0.85rem; color: var(--text-primary); margin: 0; line-height: 1.5;">
+                Deceptive messages designed to steal sensitive data like credentials, bank details, or OTPs via malicious links.
+            </p>
+        </div>
+        <div style="background: var(--card-bg); padding: 20px; border-radius: 12px; border: 1px solid var(--card-border); border-left: 5px solid var(--warning); margin-bottom: 15px;">
+            <strong style="color: var(--warning); font-size: 1.1rem; display: block; margin-bottom: 5px;">⚠️ Scam / Fraud</strong>
+            <p style="font-size: 0.85rem; color: var(--text-primary); margin: 0; line-height: 1.5;">
+                Fraudulent promises of lottery wins, job offers, or urgent account suspensions requesting advance payments or information.
+            </p>
+        </div>
+        """, unsafe_allow_html=True)
+    with col_t2:
+        st.markdown("""
+        <div style="background: var(--card-bg); padding: 20px; border-radius: 12px; border: 1px solid var(--card-border); border-left: 5px solid var(--accent); margin-bottom: 15px;">
+            <strong style="color: var(--accent); font-size: 1.1rem; display: block; margin-bottom: 5px;">📢 Promotional / Marketing</strong>
+            <p style="font-size: 0.85rem; color: var(--text-primary); margin: 0; line-height: 1.5;">
+                Unsolicited advertisement messages, brand promos, and bulk notifications. Often safe but annoying.
+            </p>
+        </div>
+        <div style="background: var(--card-bg); padding: 20px; border-radius: 12px; border: 1px solid var(--card-border); border-left: 5px solid var(--success); margin-bottom: 15px;">
+            <strong style="color: var(--success); font-size: 1.1rem; display: block; margin-bottom: 5px;">✅ Safe (Ham)</strong>
+            <p style="font-size: 0.85rem; color: var(--text-primary); margin: 0; line-height: 1.5;">
+                Legitimate personal chats, official transaction alerts, OTP requests, and verified notifications.
+            </p>
+        </div>
+        """, unsafe_allow_html=True)
     st.markdown("---")
 
     # Statistics Section
