@@ -8,28 +8,20 @@
 
 ## Setting Up Your Development Environment
 
-### 1. Install Dependencies
+### 1. Quick Setup (Recommended)
+
+```bash
+make setup
+```
+
+This installs dependencies, sets up pre-commit hooks, and runs them once.
+
+### 2. Manual Setup
 
 ```bash
 pip install -r requirements.txt
 pip install -r requirements-dev.txt
-```
-
-### 2. Install Pre-commit Hooks (Recommended)
-
-This project uses [pre-commit](https://pre-commit.com) to automatically check
-code quality before each commit.
-
-```bash
-pip install pre-commit
 pre-commit install
-```
-
-Now Ruff (linter + formatter) and other checks run automatically on every
-`git commit`.  To run them manually across all files:
-
-```bash
-pre-commit run --all-files
 ```
 
 ### 3. Configure Your Editor

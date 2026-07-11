@@ -19,3 +19,15 @@ indent_size = 2
 
 [Makefile]
 indent_style = tab
+
+[*.{py,pyx}]
+indent_size = 4
+
+[{*.sh,*.bash}]
+indent_size = 2
+
+[Dockerfile]
+indent_size = 4
+
+[*.{css,html}]
+indent_size = 2

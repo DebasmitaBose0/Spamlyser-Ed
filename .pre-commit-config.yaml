@@ -11,6 +11,15 @@ repos:
       - id: detect-private-key
       - id: mixed-line-ending
         args: ["--fix=lf"]
+      - id: check-toml
+      - id: check-json
+      - id: pretty-format-json
+        args: ["--autofix", "--no-sort-keys"]
+      - id: check-case-conflict
+      - id: check-docstring-first
+      - id: debug-statements
+      - id: name-tests-test
+        args: ["--pytest-test-first"]
 
   - repo: https://github.com/astral-sh/ruff-pre-commit
     rev: v0.11.2
@@ -31,5 +40,22 @@ repos:
       - id: python-use-type-annotations
       - id: python-check-blanket-noqa
       - id: python-check-mock-methods
+      - id: python-check-blanket-type-ignore
 
-# Security hooks added
+  - repo: https://github.com/rhysd/actionlint
+    rev: v1.7.7
+    hooks:
+      - id: actionlint
+
+  - repo: https://github.com/Lucas-C/pre-commit-hooks-safety
+    rev: v1.3.3
+    hooks:
+      - id: python-safety-dependencies-check
+        files: requirements.*.txt
+        args: ["--disable-optional-telemetry"]
+
+  - repo: https://github.com/Yelp/detect-secrets
+    rev: v1.5.0
+    hooks:
+      - id: detect-secrets
+        args: ["--exclude-files", ".*\.json$|.*\.env\.example$|tests/.*"]
