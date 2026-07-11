@@ -97,6 +97,9 @@ git merge upstream/main
 
 ## Resources
 
+- [API Reference](docs/api_reference.md) — Complete API documentation for all models
+- [Architecture Overview](docs/architecture.md) — System design and data flow
+- [Deployment Guide](docs/deployment.md) — Docker and production setup
 - [How to Contribute to Open Source](https://opensource.guide/how-to-contribute/)
 - [Using Pull Requests](https://help.github.com/articles/about-pull-requests/)
 - [GitHub Help](https://help.github.com)
