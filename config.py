@@ -80,6 +80,18 @@ WEBHOOK_CONFIG_PATH: str = os.getenv(
 )
 
 WEBHOOK_RETRY_COUNT: int = int(os.getenv("SPAMLYSER_WEBHOOK_RETRY", "3"))
+WEBHOOK_RETRY_BASE_DELAY: float = float(
+    os.getenv("SPAMLYSER_WEBHOOK_RETRY_DELAY", "1.0")
+)
+WEBHOOK_RETRY_MAX_DELAY: float = float(
+    os.getenv("SPAMLYSER_WEBHOOK_RETRY_MAX_DELAY", "30.0")
+)
+WEBHOOK_CIRCUIT_BREAKER_THRESHOLD: int = int(
+    os.getenv("SPAMLYSER_WEBHOOK_CB_THRESHOLD", "5")
+)
+WEBHOOK_CIRCUIT_BREAKER_RESET_SECONDS: int = int(
+    os.getenv("SPAMLYSER_WEBHOOK_CB_RESET", "300")
+)
 
 ENCRYPT_REPORT_BY_DEFAULT: bool = (
     os.getenv("SPAMLYSER_ENCRYPT_REPORT", "false").lower() == "true"

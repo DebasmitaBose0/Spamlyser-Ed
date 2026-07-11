@@ -19,6 +19,13 @@ data/
 .backups/
 *.bak.*.json
 
+# Patch files
+*.patch
+
+# Screenshots and generated data
+screenshots/
+seed_data.json
+
 # OS artefacts
 .DS_Store
 Thumbs.db

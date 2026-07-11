@@ -6925,7 +6925,7 @@ def show_settings_page():
     st.markdown("## 🔔 Webhook Notifications")
     st.markdown("")
 
-    wh_col1, wh_col2 = st.columns([1, 1])
+    wh_col1, wh_col2, wh_col3 = st.columns([1, 1, 1])
     with wh_col1:
         webhook_url = st.text_input(
             "Webhook URL",
@@ -6944,12 +6944,22 @@ def show_settings_page():
             placeholder="Shared secret for webhook auth",
             help="Sent as X-Webhook-Secret header for verification",
         )
+    with wh_col3:
+        webhook_events = st.multiselect(
+            "Events to send",
+            ["spam_detected", "ham_detected", "batch_complete", "anomaly_detected"],
+            default=["spam_detected"],
+            help="Which events trigger this webhook",
+        )
 
     if st.button("➕ Add Webhook", use_container_width=True):
         notifier = st.session_state.get("webhook_notifier")
         if notifier and webhook_url:
             if notifier.add_webhook(
-                webhook_url, secret=webhook_secret or None, label=webhook_label
+                webhook_url,
+                secret=webhook_secret or None,
+                label=webhook_label,
+                events=webhook_events,
             ):
                 st.success("Webhook added successfully!")
                 st.rerun()
@@ -6965,14 +6975,20 @@ def show_settings_page():
     if existing:
         st.markdown("### Active Webhooks")
         for i, wh in enumerate(existing):
-            cols = st.columns([3, 1, 1])
-            cols[0].markdown(f"**{wh['label']}** — `{wh['url']}`")
+            cols = st.columns([3, 1, 1, 1])
+            status_icon = "✅" if wh.get("enabled", True) else "⛔"
+            cols[0].markdown(f"{status_icon} **{wh['label']}** — `{wh['url']}`")
             cols[1].markdown(
                 f"Events: {', '.join(wh.get('events', ['spam_detected']))}"
             )
-            if cols[2].button("🗑️ Remove", key=f"del_wh_{i}"):
+            if cols[2].button("Toggle", key=f"toggle_wh_{i}"):
+                notifier.update_webhook(wh["url"], {"enabled": not wh.get("enabled", True)})
+                st.rerun()
+            if cols[3].button("🗑️ Remove", key=f"del_wh_{i}"):
                 notifier.remove_webhook(wh["url"])
                 st.rerun()
+
+    st.markdown(f"📊 [Open Webhook Dashboard](/Webhook_Dashboard) for delivery history and statistics.")
 
     st.markdown("---")
 

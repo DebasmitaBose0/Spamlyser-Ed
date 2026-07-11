@@ -54,7 +54,7 @@ from .threat_analyzer import (
     classify_threat_type,
     get_threat_specific_advice,
 )
-from .webhook_notifier import WebhookNotifier
+from .webhook_notifier import WebhookNotifier, CircuitBreakerState
 from .word_analyzer import WordAnalyzer
 
 __all__ = [
@@ -74,6 +74,7 @@ __all__ = [
     "SimpleExplainer",
     "StorageManager",
     "ThemePreset",
+    "CircuitBreakerState",
     "WebhookNotifier",
     "WordAnalyzer",
     "agreement_score",
