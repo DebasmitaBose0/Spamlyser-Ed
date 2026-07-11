@@ -1,9 +1,10 @@
 ## How to Contribute
 
 - Firstly, Star the Repository.
-- Take a look at the Existing [Issues](https://github.com/theeccentriccoder01/Spamlyser/issues) or create your own.
+- Take a look at the Existing [Issues](https://github.com/theeccentriccoder01/Spamlyser/issues) or create your own using the [issue templates](.github/ISSUE_TEMPLATE/).
 - Fork the Repo and create a Branch for any Issue that you are working upon.
-- Create a Pull Request which will be promptly reviewed and suggestions would be added to improve it.
+- Before starting work, check our [Security Policy](SECURITY.md) for vulnerability disclosure guidelines.
+- Create a Pull Request using the [PR template](.github/PULL_REQUEST_TEMPLATE.md) — it will be promptly reviewed and suggestions would be added to improve it.
 - Add Screenshots to help us know what this is all about.
 
 ## Setting Up Your Development Environment

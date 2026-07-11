@@ -1,0 +1,33 @@
+# Each line is a file pattern followed by one or more owners.
+# For more info: https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/about-code-owners
+
+# Default owner for all files
+* @theeccentriccoder01
+
+# Core application logic
+app.py @theeccentriccoder01
+config.py @theeccentriccoder01
+
+# Model layer
+/models/*.py @theeccentriccoder01
+
+# Page definitions
+/pages/*.py @theeccentriccoder01
+
+# Tests
+/tests/*.py @theeccentriccoder01
+
+# CI/CD and GitHub configuration
+/.github/ @theeccentriccoder01
+
+# Docker and deployment
+/Dockerfile @theeccentriccoder01
+/docker-compose.yml @theeccentriccoder01
+
+# Documentation
+/README.md @theeccentriccoder01
+/CONTRIBUTING.md @theeccentriccoder01
+/SECURITY.md @theeccentriccoder01
+
+# Asset files
+/assets/ @theeccentriccoder01

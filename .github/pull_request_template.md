@@ -1,40 +1,39 @@
-## Which issue does this PR close?
+## Description
 
-<!--
-We generally require a GitHub issue to be filed for all bug fixes and enhancements and this helps us generate change logs for our releases. You can link an issue to this PR using the GitHub syntax. For example `Closes #123` indicates that this PR will close issue #123.
--->
+<!-- Provide a clear and concise description of the changes in this PR. -->
 
-- Closes #.
+## Type of Change
 
-## Rationale for this change
+- [ ] Bug fix (non-breaking change that fixes an issue)
+- [ ] New feature (non-breaking change that adds functionality)
+- [ ] Breaking change (fix or feature that would break existing functionality)
+- [ ] Documentation update
+- [ ] CI/CD or build system change
+- [ ] Performance improvement
+- [ ] Code refactoring (no functional changes)
 
-<!--
- Why are you proposing this change? If this is already explained clearly in the issue then this section is not needed.
- Explaining clearly why changes are proposed helps reviewers understand your changes and offer better suggestions for fixes.  
--->
+## How Has This Been Tested?
 
-## What changes are included in this PR?
+<!-- Describe the tests you ran to verify your changes. -->
+- [ ] Ran `streamlit run app.py` and verified the application starts without errors
+- [ ] Ran `pytest tests/` and all tests pass
+- [ ] Manually tested the affected UI pages
+- [ ] Verified that model inference still works for spam classification
 
-<!--
-There is no need to duplicate the description in the issue here but it is sometimes worth providing a summary of the individual changes in this PR.
--->
+## Checklist:
 
-## Are these changes tested?
+- [ ] My code follows the existing code style (ruff, mypy)
+- [ ] I have added tests that prove my fix is effective or my feature works
+- [ ] I have updated the documentation if necessary
+- [ ] No new warnings or errors are introduced in the Streamlit console
+- [ ] I have run `ruff check .` and `ruff format .` on my changes
 
-<!--
-We typically require tests for all PRs in order to:
-1. Prevent the code from being accidentally broken by subsequent changes
-2. Serve as another way to document the expected behavior of the code
+## Screenshots (if applicable)
 
-If tests are not included in your PR, please explain why (for example, are they covered by existing tests)?
--->
+<!-- Add screenshots of UI changes here. -->
 
-## Are there any user-facing changes?
+## Related Issues
 
-<!--
-If there are user-facing changes then we may require documentation to be updated before approving the PR.
--->
+<!-- Link related issues using "Closes #123" or "Relates to #123". -->
 
-<!--
-If there are any breaking changes to public APIs, please add the `api change` label.
--->
+Closes #
