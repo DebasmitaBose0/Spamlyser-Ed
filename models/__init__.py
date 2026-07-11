@@ -27,6 +27,11 @@ from .custom_rules_manager import (
     save_custom_rules,
 )
 from .encrypted_report import ReportEncryptor
+from .encoding_analyzer import (
+    analyze_message_complexity,
+    detect_encoding_type,
+    detect_suspicious_chars,
+)
 from .error_boundary import (
     ConfigurationError,
     DataAccessError,
@@ -83,7 +88,10 @@ __all__ = [
     "compare_predictions",
     "confidence_distribution",
     "default_json_validator",
+    "detect_encoding_type",
     "detect_language",
+    "detect_suspicious_chars",
+    "analyze_message_complexity",
     "error_boundary",
     "evaluate_compound_rule",
     "evaluate_condition",

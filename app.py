@@ -244,6 +244,9 @@ PAGES = {
     "docs": "📚 Docs",
     "api": "🔌 API",
     "what_if": "🧪 What-If",
+    "senders": "👤 Senders",
+    "encoding": "🔤 Encoding",
+    "benchmarks": "⏱️ Benchmarks",
     "settings": "⚙️ Settings",
 }
 
@@ -7768,6 +7771,12 @@ def show_model_compare_page():
         show_docs_page()
     elif st.session_state.current_page == "api":
         show_api_page()
+    elif st.session_state.current_page == "encoding":
+        try:
+            from pages.encoding_analysis import render_encoding_analysis
+            render_encoding_analysis()
+        except ImportError as e:
+            st.warning(f"Encoding analysis module not available: {e}")
     elif st.session_state.current_page == "settings":
         show_settings_page()
     else:
