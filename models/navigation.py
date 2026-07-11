@@ -17,6 +17,10 @@ PAGES = {
     "docs": "📚 Docs",
     "api": "🔌 API",
     "what_if": "🧪 What-If",
+    "senders": "👤 Senders",
+    "encoding": "🔤 Encoding",
+    "benchmarks": "⏱️ Benchmarks",
+    "intel": "🛡️ Intel Export",
     "settings": "⚙️ Settings",
 }
 

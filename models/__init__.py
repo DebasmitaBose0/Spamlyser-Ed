@@ -49,6 +49,11 @@ from .rule_engine import (
 from .sender_reputation import SenderReputation
 from .simple_explainer import SPAM_KEYWORDS, SimpleExplainer
 from .storage_manager import StorageManager, default_json_validator
+from .threat_intel_exporter import (
+    export_as_stix_bundle,
+    export_as_csv,
+    export_as_json_report,
+)
 from .threat_analyzer import (
     THREAT_CATEGORIES,
     classify_threat_type,
@@ -87,6 +92,9 @@ __all__ = [
     "error_boundary",
     "evaluate_compound_rule",
     "evaluate_condition",
+    "export_as_stix_bundle",
+    "export_as_csv",
+    "export_as_json_report",
     "export_results_button",
     "get_threat_specific_advice",
     "is_language_supported",

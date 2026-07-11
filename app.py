@@ -244,6 +244,10 @@ PAGES = {
     "docs": "📚 Docs",
     "api": "🔌 API",
     "what_if": "🧪 What-If",
+    "senders": "👤 Senders",
+    "encoding": "🔤 Encoding",
+    "benchmarks": "⏱️ Benchmarks",
+    "intel": "🛡️ Intel Export",
     "settings": "⚙️ Settings",
 }
 
@@ -7768,6 +7772,12 @@ def show_model_compare_page():
         show_docs_page()
     elif st.session_state.current_page == "api":
         show_api_page()
+    elif st.session_state.current_page == "intel":
+        try:
+            from pages.intel_export import render_intel_export
+            render_intel_export()
+        except ImportError as e:
+            st.warning(f"Threat intel export module not available: {e}")
     elif st.session_state.current_page == "settings":
         show_settings_page()
     else:
