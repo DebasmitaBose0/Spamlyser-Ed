@@ -1,0 +1,51 @@
+# Git
+.git/
+.gitignore
+.gitattributes
+
+# Environment
+.env
+.env.example
+venv/
+.venv/
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.pytest_cache/
+*.egg-info/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Data
+data/
+screenshots/
+seed_data.json
+*.db
+*.json
+
+# Patch files
+*.patch
+
+# Docs
+docs/
+screenshots/
+
+# CI
+.github/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Dev
+Makefile
+*.md
+CONTRIBUTING.md
+LICENSE

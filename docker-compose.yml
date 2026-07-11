@@ -1,0 +1,34 @@
+version: "3.9"
+
+services:
+  spamlyser:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8501:8501"
+    volumes:
+      - spamlyser_data:/app/data
+      - spamlyser_cache:/root/.cache
+    environment:
+      - SPAMLYSER_DATA_DIR=/app/data
+      - SPAMLYSER_MODEL_CACHE_DIR=/root/.cache/huggingface/transformers
+      - SPAMLYSER_ENABLE_TELEMETRY=false
+      - PYTHONUNBUFFERED=1
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:8501')"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 45s
+    restart: unless-stopped
+    deploy:
+      resources:
+        limits:
+          memory: 2g
+        reservations:
+          memory: 512m
+
+volumes:
+  spamlyser_data:
+  spamlyser_cache:

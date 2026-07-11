@@ -310,6 +310,36 @@ Spamlyser/
    streamlit run app.py
    ```
 
+### 🐳 Docker Deployment (Recommended for Production)
+
+1. **Build and run with Docker Compose:**
+
+   ```bash
+   docker compose up -d --build
+   ```
+
+2. **Open in browser:** 👉 [http://localhost:8501](http://localhost:8501)
+
+3. **Check container health:**
+
+   ```bash
+   docker compose exec spamlyser python healthcheck.py
+   ```
+
+4. **View logs:**
+
+   ```bash
+   docker compose logs -f
+   ```
+
+5. **Stop the service:**
+
+   ```bash
+   docker compose down
+   ```
+
+The Docker setup includes automatic health checks, persistent data volumes, memory limits, and restart policies.
+
 <img src="https://user-images.githubusercontent.com/73097560/115834477-dbab4500-a447-11eb-908a-139a6edaec5c.gif" width="100%">
 
 <h2 id="example-usage">🚀 Example Usage</h2>
