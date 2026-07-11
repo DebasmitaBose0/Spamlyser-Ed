@@ -1,0 +1,316 @@
+[
+  {
+    "timestamp": "2026-07-04T19:32:36.127747",
+    "message": "Hi Mom, just letting you know I am home safe.",
+    "prediction": "HAM",
+    "confidence": 0.97,
+    "model": "DistilBERT",
+    "ensemble_predictions": {
+      "majority_voting": {
+        "label": "HAM",
+        "confidence": 0.97
+      }
+    },
+    "model_predictions": {
+      "DistilBERT": "HAM",
+      "BERT": "HAM",
+      "RoBERTa": "HAM",
+      "ALBERT": "HAM"
+    },
+    "risk_indicators": {}
+  },
+  {
+    "timestamp": "2026-07-04T19:37:36.127747",
+    "message": "Free entry to our exclusive lottery! Text WIN to 87879.",
+    "prediction": "SPAM",
+    "confidence": 0.94,
+    "model": "DistilBERT",
+    "ensemble_predictions": {
+      "majority_voting": {
+        "label": "SPAM",
+        "confidence": 0.94
+      }
+    },
+    "model_predictions": {
+      "DistilBERT": "SPAM",
+      "BERT": "SPAM",
+      "RoBERTa": "SPAM",
+      "ALBERT": "SPAM"
+    },
+    "risk_indicators": {
+      "phishing": 0.282
+    }
+  },
+  {
+    "timestamp": "2026-07-04T19:42:36.127747",
+    "message": "Meeting at 3 PM, dont be late.",
+    "prediction": "HAM",
+    "confidence": 0.99,
+    "model": "DistilBERT",
+    "ensemble_predictions": {
+      "majority_voting": {
+        "label": "HAM",
+        "confidence": 0.99
+      }
+    },
+    "model_predictions": {
+      "DistilBERT": "HAM",
+      "BERT": "HAM",
+      "RoBERTa": "HAM",
+      "ALBERT": "HAM"
+    },
+    "risk_indicators": {}
+  },
+  {
+    "timestamp": "2026-07-04T19:47:36.127747",
+    "message": "Urgent: Your bank account has been compromised. Verify now.",
+    "prediction": "SPAM",
+    "confidence": 0.96,
+    "model": "DistilBERT",
+    "ensemble_predictions": {
+      "majority_voting": {
+        "label": "SPAM",
+        "confidence": 0.96
+      }
+    },
+    "model_predictions": {
+      "DistilBERT": "SPAM",
+      "BERT": "SPAM",
+      "RoBERTa": "SPAM",
+      "ALBERT": "SPAM"
+    },
+    "risk_indicators": {
+      "phishing": 0.288
+    }
+  },
+  {
+    "timestamp": "2026-07-04T19:52:36.127747",
+    "message": "Hey, how are you doing today?",
+    "prediction": "HAM",
+    "confidence": 0.95,
+    "model": "DistilBERT",
+    "ensemble_predictions": {
+      "majority_voting": {
+        "label": "HAM",
+        "confidence": 0.95
+      }
+    },
+    "model_predictions": {
+      "DistilBERT": "HAM",
+      "BERT": "HAM",
+      "RoBERTa": "HAM",
+      "ALBERT": "HAM"
+    },
+    "risk_indicators": {}
+  },
+  {
+    "timestamp": "2026-07-08T16:32:36.127747",
+    "message": "Congratulations! You have won a new iPhone! Claim here.",
+    "prediction": "SPAM",
+    "confidence": 0.98,
+    "model": "BERT",
+    "ensemble_predictions": {
+      "majority_voting": {
+        "label": "SPAM",
+        "confidence": 0.98
+      }
+    },
+    "model_predictions": {
+      "DistilBERT": "HAM",
+      "BERT": "SPAM",
+      "RoBERTa": "SPAM",
+      "ALBERT": "SPAM"
+    },
+    "risk_indicators": {
+      "spam_keywords": 0.49
+    }
+  },
+  {
+    "timestamp": "2026-07-08T16:40:36.127747",
+    "message": "Just confirming our appointment for tomorrow at 10 AM.",
+    "prediction": "HAM",
+    "confidence": 0.97,
+    "model": "BERT",
+    "ensemble_predictions": {
+      "majority_voting": {
+        "label": "HAM",
+        "confidence": 0.97
+      }
+    },
+    "model_predictions": {
+      "DistilBERT": "HAM",
+      "BERT": "HAM",
+      "RoBERTa": "HAM",
+      "ALBERT": "HAM"
+    },
+    "risk_indicators": {}
+  },
+  {
+    "timestamp": "2026-07-08T16:48:36.127747",
+    "message": "Your subscription is expiring. Renew now.",
+    "prediction": "SPAM",
+    "confidence": 0.91,
+    "model": "BERT",
+    "ensemble_predictions": {
+      "majority_voting": {
+        "label": "SPAM",
+        "confidence": 0.91
+      }
+    },
+    "model_predictions": {
+      "DistilBERT": "HAM",
+      "BERT": "SPAM",
+      "RoBERTa": "SPAM",
+      "ALBERT": "SPAM"
+    },
+    "risk_indicators": {
+      "spam_keywords": 0.455
+    }
+  },
+  {
+    "timestamp": "2026-07-08T16:56:36.127747",
+    "message": "Can you pick up some milk on your way back?",
+    "prediction": "HAM",
+    "confidence": 0.96,
+    "model": "BERT",
+    "ensemble_predictions": {
+      "majority_voting": {
+        "label": "HAM",
+        "confidence": 0.96
+      }
+    },
+    "model_predictions": {
+      "DistilBERT": "HAM",
+      "BERT": "HAM",
+      "RoBERTa": "HAM",
+      "ALBERT": "HAM"
+    },
+    "risk_indicators": {}
+  },
+  {
+    "timestamp": "2026-07-10T13:32:36.127747",
+    "message": "WINNER! You are today lucky draw winner. Call now!",
+    "prediction": "SPAM",
+    "confidence": 0.93,
+    "model": "RoBERTa",
+    "ensemble_predictions": {
+      "majority_voting": {
+        "label": "SPAM",
+        "confidence": 0.93
+      }
+    },
+    "model_predictions": {
+      "DistilBERT": "SPAM",
+      "BERT": "SPAM",
+      "RoBERTa": "SPAM",
+      "ALBERT": "SPAM"
+    },
+    "risk_indicators": {
+      "spam_keywords": 0.558
+    }
+  },
+  {
+    "timestamp": "2026-07-10T13:35:36.127747",
+    "message": "Dinner at 8 PM at the usual place?",
+    "prediction": "HAM",
+    "confidence": 0.98,
+    "model": "RoBERTa",
+    "ensemble_predictions": {
+      "majority_voting": {
+        "label": "HAM",
+        "confidence": 0.98
+      }
+    },
+    "model_predictions": {
+      "DistilBERT": "HAM",
+      "BERT": "HAM",
+      "RoBERTa": "HAM",
+      "ALBERT": "HAM"
+    },
+    "risk_indicators": {}
+  },
+  {
+    "timestamp": "2026-07-10T13:38:36.127747",
+    "message": "Limited time offer! Buy one get one free.",
+    "prediction": "SPAM",
+    "confidence": 0.89,
+    "model": "RoBERTa",
+    "ensemble_predictions": {
+      "majority_voting": {
+        "label": "SPAM",
+        "confidence": 0.89
+      }
+    },
+    "model_predictions": {
+      "DistilBERT": "SPAM",
+      "BERT": "SPAM",
+      "RoBERTa": "SPAM",
+      "ALBERT": "SPAM"
+    },
+    "risk_indicators": {
+      "spam_keywords": 0.534
+    }
+  },
+  {
+    "timestamp": "2026-07-11T19:32:36.127747",
+    "message": "Thanks for your payment. Receipt attached.",
+    "prediction": "HAM",
+    "confidence": 0.99,
+    "model": "ALBERT",
+    "ensemble_predictions": {
+      "majority_voting": {
+        "label": "HAM",
+        "confidence": 0.99
+      }
+    },
+    "model_predictions": {
+      "DistilBERT": "HAM",
+      "BERT": "HAM",
+      "RoBERTa": "HAM",
+      "ALBERT": "HAM"
+    },
+    "risk_indicators": {}
+  },
+  {
+    "timestamp": "2026-07-11T19:34:36.127747",
+    "message": "You have been selected for a FREE vacation!",
+    "prediction": "SPAM",
+    "confidence": 0.95,
+    "model": "ALBERT",
+    "ensemble_predictions": {
+      "majority_voting": {
+        "label": "SPAM",
+        "confidence": 0.95
+      }
+    },
+    "model_predictions": {
+      "DistilBERT": "SPAM",
+      "BERT": "SPAM",
+      "RoBERTa": "SPAM",
+      "ALBERT": "SPAM"
+    },
+    "risk_indicators": {
+      "spam_keywords": 0.38
+    }
+  },
+  {
+    "timestamp": "2026-07-11T19:36:36.127747",
+    "message": "See you at the office tomorrow morning.",
+    "prediction": "HAM",
+    "confidence": 0.97,
+    "model": "ALBERT",
+    "ensemble_predictions": {
+      "majority_voting": {
+        "label": "HAM",
+        "confidence": 0.97
+      }
+    },
+    "model_predictions": {
+      "DistilBERT": "HAM",
+      "BERT": "HAM",
+      "RoBERTa": "HAM",
+      "ALBERT": "HAM"
+    },
+    "risk_indicators": {}
+  }
+]

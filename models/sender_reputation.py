@@ -29,6 +29,8 @@ class SenderReputation:
         self._lock = Lock()
         self._cache: dict[str, dict] = {}
         self._dirty = False
+        self._last_flush = time.time()
+        self._flush_interval = 60.0
         self._load()
 
     def _load(self):
@@ -60,6 +62,12 @@ class SenderReputation:
                 "confidence_scores": [],
             }
         return self._cache[sender]
+
+    def _auto_flush(self):
+        now = time.time()
+        if self._dirty and (now - self._last_flush) > self._flush_interval:
+            self._save()
+            self._last_flush = now
 
     def record_analysis(
         self,
@@ -95,6 +103,7 @@ class SenderReputation:
             entry["reputation_score"] = 1.0 - (spam_ratio * 0.7 + avg_conf * 0.3)
 
             self._dirty = True
+            self._auto_flush()
             return entry
 
     def get_reputation(self, sender: str) -> dict:
@@ -128,6 +137,52 @@ class SenderReputation:
                     )
             entries.sort(key=lambda x: x["reputation_score"])
             return entries[:limit]
+
+    def get_all_senders(self, limit: int = 100, offset: int = 0) -> list[dict]:
+        with self._lock:
+            entries = []
+            for sender, data in self._cache.items():
+                entries.append(
+                    {
+                        "sender": sender,
+                        "reputation_score": data["reputation_score"],
+                        "spam_count": data["spam_count"],
+                        "ham_count": data["ham_count"],
+                        "total_messages": data["total_messages"],
+                        "last_seen": data["last_seen"],
+                    }
+                )
+            entries.sort(key=lambda x: x["last_seen"], reverse=True)
+            return entries[offset:offset + limit]
+
+    def get_sender_count(self) -> int:
+        with self._lock:
+            return len(self._cache)
+
+    def get_aggregate_stats(self) -> dict:
+        with self._lock:
+            if not self._cache:
+                return {
+                    "total_senders": 0,
+                    "total_messages": 0,
+                    "total_spam": 0,
+                    "total_ham": 0,
+                    "avg_reputation": 0.0,
+                }
+            total_msgs = sum(d["total_messages"] for d in self._cache.values())
+            total_spam = sum(d["spam_count"] for d in self._cache.values())
+            total_ham = sum(d["ham_count"] for d in self._cache.values())
+            avg_rep = (
+                sum(d["reputation_score"] for d in self._cache.values())
+                / len(self._cache)
+            )
+            return {
+                "total_senders": len(self._cache),
+                "total_messages": total_msgs,
+                "total_spam": total_spam,
+                "total_ham": total_ham,
+                "avg_reputation": round(avg_rep, 3),
+            }
 
     def flush(self):
         if self._dirty:

@@ -5,19 +5,20 @@ import streamlit as st
 PAGES = {
     "home": "🏠 Home",
     "analyzer": "🔍 SMS Analyzer",
-    "about": "ℹ️ About",
-    "features": "⚡ Features",
     "analytics": "📊 Analytics",
     "trends": "📈 Trend Analytics",
     "anomaly": "🔍 Anomaly Detection",
+    "senders": "👤 Senders",
     "models": "🤖 Models",
+    "what_if": "🧪 What-If",
     "feedback": "💬 Feedback",
     "help": "❓ Help",
-    "contact": "📞 Contact",
+    "settings": "⚙️ Settings",
+    "about": "ℹ️ About",
+    "features": "⚡ Features",
     "docs": "📚 Docs",
     "api": "🔌 API",
-    "what_if": "🧪 What-If",
-    "settings": "⚙️ Settings",
+    "contact": "📞 Contact",
 }
 
 
