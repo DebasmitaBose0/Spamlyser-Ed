@@ -3,7 +3,7 @@ High Contrast Accessibility & WCAG Color Checker for Spamlyser UI
 Provides accessibility verification utilities to ensure WCAG 2.1 AAA contrast compliance.
 """
 
-from typing import Tuple, Dict
+from typing import Tuple, Dict, Any
 
 
 class ContrastChecker:
