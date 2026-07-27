@@ -472,6 +472,10 @@ class EnsembleSpamClassifier:
     def get_ensemble_prediction(
         self, predictions: dict[str, dict[str, Any]], method: str = "weighted_average"
     ) -> dict[str, Any]:
+        import time
+        from .telemetry_logger import TelemetryLogger
+
+        start_time = time.perf_counter()
         method_map = {
             "majority_voting": self.majority_voting,
             "weighted_average": self.weighted_average,
@@ -493,6 +497,21 @@ class EnsembleSpamClassifier:
 
         # Add threat type if it's SPAM (to be populated by threat_analyzer later)
         result["threat_type"] = None
+
+        # Log telemetry metrics
+        try:
+            TelemetryLogger.log_execution_time(
+                name=f"ensemble_prediction_{method}",
+                start_time=start_time,
+                success=True,
+                details={
+                    "label": result.get("label"),
+                    "confidence": result.get("confidence"),
+                    "input_models_count": len(predictions),
+                },
+            )
+        except Exception:
+            pass
 
         return result
 

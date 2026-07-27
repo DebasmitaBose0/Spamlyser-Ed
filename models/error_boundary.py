@@ -6,6 +6,7 @@ import traceback
 from typing import Any, Callable, TypeVar
 
 import streamlit as st
+from models.telemetry_logger import TelemetryLogger
 
 logger = logging.getLogger(__name__)
 
@@ -45,6 +46,12 @@ def error_boundary(page_func: F, fallback_message: str | None = None) -> F:
         try:
             return page_func(*args, **kwargs)
         except PageError as exc:
+            TelemetryLogger.log_event("page_error_boundary", {
+                "page": exc.page or page_func.__name__,
+                "recoverable": exc.recoverable,
+                "error_message": str(exc),
+                "error_type": exc.__class__.__name__
+            })
             logger.error(
                 "PageError in %s (recoverable=%s): %s",
                 exc.page or page_func.__name__,
@@ -58,6 +65,11 @@ def error_boundary(page_func: F, fallback_message: str | None = None) -> F:
                 recoverable=exc.recoverable,
             )
         except Exception as exc:
+            TelemetryLogger.log_event("unhandled_app_error", {
+                "page": page_func.__name__,
+                "error_message": str(exc),
+                "error_type": exc.__class__.__name__
+            })
             logger.error(
                 "Unhandled error in %s: %s", page_func.__name__, exc, exc_info=True
             )

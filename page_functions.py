@@ -260,3 +260,36 @@ def show_feedback_page(navigate_to):
     with col3:
         if st.button("❓ Get Help", use_container_width=True):
             navigate_to("help")
+
+
+def render_telemetry_dashboard():
+    """Renders a simple telemetry dashboard showing recent log stats."""
+    import os
+    import json
+    st.markdown("## 📊 Telemetry Diagnostics")
+
+    log_file = "data/telemetry.jsonl"
+    if not os.path.exists(log_file):
+        st.info("No telemetry logs found. Run some operations to generate data.")
+        return
+
+    try:
+        events = []
+        with open(log_file, "r", encoding="utf-8") as f:
+            for line in f:
+                if line.strip():
+                    events.append(json.loads(line.strip()))
+
+        total_runs = len([e for e in events if e.get("event") == "execution_telemetry"])
+        errors = len([e for e in events if "error" in e.get("event", "")])
+
+        col1, col2 = st.columns(2)
+        with col1:
+            st.metric("Total Execution Events", total_runs)
+        with col2:
+            st.metric("Total Diagnostic Errors", errors)
+
+        st.markdown("### Recent Log Entries")
+        st.dataframe(events[-10:])
+    except Exception as e:
+        st.error(f"Error reading telemetry logs: {e}")

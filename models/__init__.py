@@ -56,8 +56,10 @@ from .threat_analyzer import (
 )
 from .webhook_notifier import WebhookNotifier
 from .word_analyzer import WordAnalyzer
+from .telemetry_logger import TelemetryLogger
 
 __all__ = [
+    "TelemetryLogger",
     "SPAM_KEYWORDS",
     "THREAT_CATEGORIES",
     "BatchProcessor",
